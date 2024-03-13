@@ -1,15 +1,37 @@
 function Footer(params) {
     return (
         <div className="footer">
-            <div className="footer-content">
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br />
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br />
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.<br />
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
+            <div>
+                <table style={{
+                    width: "100%"
+                }}>
+                    <tr>
+                        <td>
+                            <p className="footer-header">Aurora Toastmasters Club</p>
+                            <p>
+                                Club No. 0000000, Area 00, Division A, District 82
+                            </p>
+                            <p>
+                                Meeting Venue: 000, 00th Lane, 00th Street, Colombo 00
+                            </p>
+                            <p>
+                                <a href="mailto"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+                                <a href="https://www.facebook.com">
+                                    <img src="https://img.shields.io/badge/Facebook-316FF6?style=for-the-badge&logo=facebook&logoColor=white" />
+                                </a>
+                                <a href="https://www.instagram.com">
+                                    <img src="https://img.shields.io/badge/Instagram-E1306C?style=for-the-badge&logo=instagram&logoColor=white" />
+                                </a>
+                            </p>
+                        </td>
+                        <td>
+                            <div>
+                                “The information on this website is for the sole use of<br /> Toastmasters’ members, for Toastmasters business only.<br />
+                                It is not to be used for solicitation and distribution<br /> of non-Toastmasters material or information.”<br />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
             </div>
         </div>
     )

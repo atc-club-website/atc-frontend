@@ -6,8 +6,7 @@ function HomePage(params) {
     return (
         <div>
             <Navbar />
-            <div className="home-group-pic-container">
-            </div>
+            <div className="home-group-pic-container"/>
             <div className="about-content">
                 <h2>About Us</h2>
                 <p>
