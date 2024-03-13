@@ -17,11 +17,11 @@ const Navbar = () => {
           </div>
 
           <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
-            <a href='#'>Projectile</a>
-            <a href='#'>Simple Harmonic</a>
-            <a href='#'>Wave</a>
-            <a href='#'>Thermal Expansion</a>
-            <a href='#'>Free Fall</a>
+            <a href='#'>Latest News</a>
+            <a href='#'>About Us</a>
+            <a href='#'>Pathways Modules</a>
+            <a href='#'>Acheivements</a>
+            <a href='#'>Photo Gallery</a>
           </div>
 
           <div className="navbar-toggle" onClick={toggleMobileMenu}>
@@ -31,10 +31,6 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
     </div>
   );
 };
