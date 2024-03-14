@@ -13,12 +13,12 @@ const Navbar = () => {
       <nav className="navbar">
         <div className="navbar-container">
           <div className="navbar-logo">
-            <a href='#'>Aurora Toastmasters Club</a>
+            <a href='/'>Aurora Toastmasters Club</a>
           </div>
 
           <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
-            <a href='#'>Latest News</a>
-            <a href='#'>About Us</a>
+            <a href='/'>Latest News</a>
+            <a href='/aboutUs'>About Us</a>
             <a href='#'>Pathways Modules</a>
             <a href='#'>Acheivements</a>
             <a href='#'>Photo Gallery</a>

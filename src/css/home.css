@@ -14,7 +14,7 @@
     flex-direction: row;
 }
 
-.about-content {
+.about-content-home {
     background-color: var(--dark_blue);
     padding: 20px 40px;
     color: var(--white);
