@@ -9,22 +9,45 @@
     background-size: cover;
 }
 
-.latest-news-cum-meetinginfo {
+.mission-vision-objectives-meetinginfo {
     display: flex;
     flex-direction: row;
 }
 
-.about-content-home {
-    background-color: var(--dark_blue);
-    padding: 20px 40px;
-    color: var(--white);
-}
-
-.meetinginfo-content {
-    padding: 10px 20px;
+.mission-vision-objectives {
+    display: flex;
+    flex-direction: row;
     width: 100%;
 }
 
-.latest-news {
-    padding: 10px 20px;
+.mission-vision {
+    padding: 20px 0px 20px 40px;
+    width: 100%;
+}
+
+.objectives {
+    padding: 20px;
+    width: 100%;
+}
+
+.president-about-content-home {
+    background-color: var(--dark_blue);
+    color: var(--white);
+    display: flex;
+    flex-direction: row;
+}
+
+.president-message-home {
+    padding: 20px 40px;
+    width: 100%;
+}
+
+.about-content-home {
+    padding: 20px 40px 20px 0px;
+    width: 100%;
+}
+
+.meetinginfo-content {
+    padding: 20px 40px;
+    width: 100%;
 }

@@ -7,23 +7,23 @@
     line-height: 2;
 }
 
-table {
+.excom table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 30px;
 }
 
-th, td {
+.excom th, td {
     text-align: left;
     padding: 16px;
 }
 
-tr {
+.excom tr {
     transition: 0.1s ease-in;
 }
 
-tr:hover {
+.excom tr:hover {
     background-color: var(--dark_blue);
     color: white;
 }

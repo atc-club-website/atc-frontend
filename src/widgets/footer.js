@@ -13,11 +13,11 @@ function Footer(params) {
                     Meetings are held on every 2nd and 4th Wednesday of the month
                 </p>
                 <p>
-                    <a href="mailto"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-                    <a href="https://www.facebook.com">
+                    <a href="mailto" target="_blank"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+                    <a href="https://www.facebook.com" target="_blank">
                         <img src="https://img.shields.io/badge/Facebook-316FF6?style=for-the-badge&logo=facebook&logoColor=white" />
                     </a>
-                    <a href="https://www.instagram.com">
+                    <a href="https://www.instagram.com" target="_blank">
                         <img src="https://img.shields.io/badge/Instagram-E1306C?style=for-the-badge&logo=instagram&logoColor=white" />
                     </a>
                 </p>
