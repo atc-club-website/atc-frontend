@@ -1,0 +1,20 @@
+@font-face {
+    font-family: "montserrat-sb";
+    src: url('../font/montserrat/static/Montserrat-SemiBold.ttf') format('truetype');
+}
+@font-face {
+    font-family: "montserrat-r";
+    src: url('../font/montserrat/static/Montserrat-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: "montserrat-l";
+    src: url('../font/montserrat/static/Montserrat-Light.ttf') format('truetype');
+}
+@font-face {
+    font-family: "myriad-pro-b";
+    src: url('../font/myriad_pro/Myriad\ Pro\ Bold.ttf') format('truetype');
+}
+@font-face {
+    font-family: "myriad-pro-r";
+    src: url('../font/myriad_pro/Myriad\ Pro\ Light.otf') format('opentype');
+}

@@ -1,9 +1,13 @@
 .header {
+    font-family: "montserrat-sb";
     font-size: 40px;
+    color: var(--dark_blue);
 }
 
 .subheader {
+    font-family: "montserrat-r";
     font-size: 30px;
+    color: var(--dark_blue);
 }
 
 .content {
