@@ -23,7 +23,7 @@ const Navbar = () => {
             <a href='/aboutUs'>About Us</a>
             <a href='/clubMeetingFormat'>Typical Club Meeting</a>
             <a href='/pathways'>Pathways Modules</a>
-            <a href='#'>Acheivements</a>
+            <a href='/clubAchievements'>Achievements</a>
             <a href='#'>Photo Gallery</a>
             <a href='/resources'>Resources</a>
           </div>
