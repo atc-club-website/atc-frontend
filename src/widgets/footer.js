@@ -2,7 +2,6 @@ function Footer(params) {
     return (
         <div className="footer">
             <div className="meeting-info-footer">
-                <p className="footer-header">Aurora Toastmasters Club</p>
                 <p>
                     Club No. 0000000, Area 00, Division A, District 82
                 </p>

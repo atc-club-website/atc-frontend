@@ -7,13 +7,9 @@
     padding: 10px 0;
     margin-bottom: 20px;
     width: 100%;
-    height: 40px;
+    height: 50px;
     position: fixed;
     backdrop-filter: blur(15px);
-}
-
-.header-image {
-    width: 100%;
 }
 
 .navbar-container {
@@ -78,7 +74,7 @@
 
 .club-banner-footer {
     text-align: center;
-    padding: 60px 0;
+    padding: 30px 0;
     margin-right: 30px;
     width: 50%;
 }

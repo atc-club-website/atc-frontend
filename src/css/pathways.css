@@ -1,0 +1,39 @@
+.pathways-header {
+    font-size: 40px;
+}
+
+.pathways-subheader {
+    font-size: 30px;
+}
+
+.pathways-content {
+    font-size: 18px;
+    line-height: 2;
+}
+
+.pathways-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.pathways-table td {
+    text-align: left;
+    padding: 16px;
+}
+.pathways-table th {
+    text-align: left;
+    padding: 16px;
+    background-color: var(--dark_blue);
+    color: white;
+}
+
+.pathways-table tr {
+    transition: 0.1s ease-in;
+}
+
+.pathways-table tr:hover {
+    background-color: var(--dark_blue);
+    color: white;
+}
