@@ -38,6 +38,7 @@ const Navbar = () => {
             <a href='/pathways'>Pathways Modules</a>
             <a href='#'>Acheivements</a>
             <a href='#'>Photo Gallery</a>
+            <a href='/resources'>Resources</a>
           </div>
 
           <div className="navbar-toggle" onClick={toggleMobileMenu}>
