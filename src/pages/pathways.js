@@ -1,7 +1,7 @@
 import Navbar from "../widgets/navbar";
 import React, { useState } from 'react';
 import '../css/navbar.css';
-import "../css/pathways.css";
+import "../css/page.css";
 import { Container } from "@mui/material";
 import Footer from "../widgets/footer";
 
@@ -27,13 +27,13 @@ function Pathways(params) {
             <br />
             <br />
             <Container>
-                <p className="pathways-header">Pathways</p>
-                <p className="pathways-content">
+                <p className="header">Pathways</p>
+                <p className="content">
                     Toastmasters’ education system is called Pathways. It is a modern, flexible and interactive way to develop your skills and help you reach your goals. It is designed to help you build the competencies you need to communicate and lead. It is comprised of 11 paths that teach more than 300 unique competencies.
                     A path is a series of 14 projects across five levels that you follow at your own pace. Examples of projects are learning to ‘negotiate the best outcome’, ‘understanding your leadership style’ and ‘delivering social speeches’. Each project contains at least one speech. Your path functions as a roadmap in your personal communication and leadership journey and provides you with useful information, instructions and learning tools to help you prepare each project and speech.
                 </p>
-                <p className="pathways-subheader">Paths you can choose</p>
-                <div className="pathways-table">
+                <p className="subheader">Paths you can choose</p>
+                <div className="table">
                     <table>
                         <tr>
                             <th>

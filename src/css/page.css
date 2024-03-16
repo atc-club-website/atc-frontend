@@ -1,39 +1,39 @@
-.pathways-header {
+.header {
     font-size: 40px;
 }
 
-.pathways-subheader {
+.subheader {
     font-size: 30px;
 }
 
-.pathways-content {
+.content {
     font-size: 18px;
     line-height: 2;
 }
 
-.pathways-table table {
+.table table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 30px;
 }
 
-.pathways-table td {
+.table td {
     text-align: left;
     padding: 16px;
 }
-.pathways-table th {
+.table th {
     text-align: left;
     padding: 16px;
     background-color: var(--dark_blue);
     color: white;
 }
 
-.pathways-table tr {
+.table tr {
     transition: 0.1s ease-in;
 }
 
-.pathways-table tr:hover {
+.table tr:hover {
     background-color: var(--dark_blue);
     color: white;
 }

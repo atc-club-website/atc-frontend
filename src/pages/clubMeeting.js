@@ -1,7 +1,7 @@
 import Navbar from "../widgets/navbar";
 import React, { useState } from 'react';
 import '../css/navbar.css';
-import "../css/clubMeeting.css";
+import "../css/page.css";
 import { Container } from "@mui/material";
 import Footer from "../widgets/footer";
 
@@ -13,8 +13,8 @@ function ClubMeetingFormat(params) {
             <br />
             <br />
             <Container>
-                <p className="clubmeetings-header">A typical Club Meeting</p>
-                <p className="clubmeetings-content">
+                <p className="header">A typical Club Meeting</p>
+                <p className="content">
                     A typical club meeting is a learn-by-doing workshop in which participants hone their speaking and leadership skills in a no-pressure atmosphere. There is no instructor in a Toastmasters meeting. Instead, members evaluate one another’s presentations. This feedback process is a key part of the program’s success. Meeting participants also give impromptu talks on assigned topics, conduct meetings and develop skills related to timekeeping, grammar and parliamentary procedure.
                     The meetings are held on a regular basis, usually once a week or once a fortnight. The duration of the meeting is usually 2 hours to 2.5 hours. The meeting is divided into several segments, each of which has a specific purpose and role. The segments are as follows:
                     <p>
@@ -31,8 +31,8 @@ function ClubMeetingFormat(params) {
                         During this portion, members practice their listening and evaluation skills. Assigned members will give evaluations of the prepared speeches and of the meeting as a whole. These evaluations provide feedback of how the evaluators saw the presenters and will point out the positive aspects of the speech and some possible areas for improvement. Good evaluations are the hallmark of skilled Toastmasters.
                     </p>
                 </p>
-                <p className="clubmeetings-subheader">Meeting Roles</p>
-                <div className="clubmeetings-table">
+                <p className="subheader">Meeting Roles</p>
+                <div className="table">
                     <table>
                         <tr>
                             <th>

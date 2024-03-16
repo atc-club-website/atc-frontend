@@ -15,20 +15,7 @@ const Navbar = () => {
         <div className="navbar-container">
           <div className="navbar-logo">
             <a href='/'>
-              <tr>
-                <td style={{
-                  verticalAlign: 'middle'
-                }}>
-                  <img src={tmLogo} style={{
-                    width: '65px'
-                  }} />
-                </td>
-                <td style={{
-                  verticalAlign: 'middle'
-                }}>
-                  Aurora Toastmasters Club
-                </td>
-              </tr>
+              Aurora Toastmasters Club
             </a>
           </div>
 
