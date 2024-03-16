@@ -36,3 +36,21 @@
     transform: rotate(360deg);
   }
 }
+
+h2 {
+  font-family: "montserrat-sb";
+}
+
+p {
+  font-family: "myriad-pro-r";
+  line-height: 1.7;
+  font-size: 17px;
+}
+
+b {
+  font-family: "montserrat-r";
+}
+
+table {
+  font-family: "montserrat-r";
+}

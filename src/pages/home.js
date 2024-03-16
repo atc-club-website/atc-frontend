@@ -1,8 +1,22 @@
 import Navbar from "../widgets/navbar";
 import "../css/home.css";
 import Footer from "../widgets/footer";
+import { useEffect } from "react";
+import groupPic from '../assets/group_pic.jpg';
 
 function HomePage(params) {
+    useEffect(() => {
+        const handleScroll = () => {
+            var scrollPosition = window.scrollY / window.innerHeight;
+            var opacity = Math.min(scrollPosition / 0.9, 1);
+            document.querySelector('.home-group-pic-container').style.backgroundImage =
+                'linear-gradient(to bottom, rgba(255,255,255,' + opacity + '), rgba(0,65,101,' + opacity + ')), url(\'' + groupPic + '\')';
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
     return (
         <div>
             <Navbar />
