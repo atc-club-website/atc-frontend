@@ -1,11 +1,35 @@
 import Navbar from "../widgets/navbar";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/navbar.css';
 import "../css/page.css";
-import { Container } from "@mui/material";
+import { Container, IconButton } from "@mui/material";
 import Footer from "../widgets/footer";
+import supabase from "../supabase/supabase_init";
+import EditIcon from '@mui/icons-material/Edit';
+
+const positions = {
+    "pres": "President",
+    "vpe": "Vice President of Education",
+    "vpm": "Vice President of Membership",
+    "vppr": "Vice President of Public Relations",
+    "sec": "Secretary",
+    "tres": "Treasurer",
+    "saa": "Sergeant at Arms",
+}
 
 function AboutUs(params) {
+    const [excom, setExcom] = useState([]);
+    async function getExcomFromSupabase() {
+        const { data, error } = await supabase.from('excom').select('*');
+        if (error) {
+            console.log(error);
+            return [];
+        }
+        return data;
+    }
+    useEffect(() => {
+        getExcomFromSupabase().then(data => setExcom(data));
+    }, []);
     return (
         <div>
             <Navbar />
@@ -24,61 +48,30 @@ function AboutUs(params) {
                 <div className="table">
                     <table>
                         <tr>
-                            <td>
-                                President
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
+                            <th style={{
+                                width: '20px'
+                            }}>
+                            </th>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Position
+                            </th>
                         </tr>
-                        <tr>
-                            <td>
-                                Vice-President Education
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Vice-President Membership
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Vice-President Public Relations
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Secretary
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Treasurer
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Sergeant at Arms
-                            </td>
-                            <td>
-                                Lorem Ipsum
-                            </td>
-                        </tr>
+                        {excom.map((row, index) => (
+                            <tr key={index}>
+                                <th>
+                                    <IconButton style={{
+                                        color: '#F2DF74'
+                                    }}>
+                                        <EditIcon />
+                                    </IconButton>
+                                </th>
+                                <td>{row.name}</td>
+                                <td>{positions[row.position]}</td>
+                            </tr>
+                        ))}
                     </table>
                 </div>
             </Container>
