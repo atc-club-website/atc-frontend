@@ -33,7 +33,7 @@ function Pathways(params) {
                     A path is a series of 14 projects across five levels that you follow at your own pace. Examples of projects are learning to ‘negotiate the best outcome’, ‘understanding your leadership style’ and ‘delivering social speeches’. Each project contains at least one speech. Your path functions as a roadmap in your personal communication and leadership journey and provides you with useful information, instructions and learning tools to help you prepare each project and speech.
                 </p>
                 <p className="subheader">Paths you can choose</p>
-                <div className="table">
+                <div className="table links-table">
                     <table>
                         <tr>
                             <th>

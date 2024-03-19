@@ -37,7 +37,7 @@ function Resources(params) {
                         width: '100%'
                     }}>
                         <p className="subheader">Scripts</p>
-                        <div className="table">
+                        <div className="table links-table">
                             <table>
                                 <tr>
                                     <td>
@@ -81,7 +81,7 @@ function Resources(params) {
                         width: '100%'
                     }}>
                         <p className="subheader">Design Elements</p>
-                        <div className="table">
+                        <div className="table links-table">
                             <table>
                                 <tr onClick={
                                     () => {
@@ -135,7 +135,7 @@ function Resources(params) {
                         width: '100%'
                     }}>
                         <p className="subheader">Videos</p>
-                        <div className="table">
+                        <div className="table links-table">
                             <table>
                                 <tr onClick={
                                     () => {

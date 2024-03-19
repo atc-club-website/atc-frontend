@@ -39,6 +39,7 @@
 
 h2 {
   font-family: "montserrat-sb";
+  color: var(--dark_blue);
 }
 
 p {
