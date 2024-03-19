@@ -5,7 +5,7 @@ import "../css/page.css";
 import { Container, IconButton } from "@mui/material";
 import Footer from "../widgets/footer";
 import supabase from "../supabase/supabase_init";
-import EditIcon from '@mui/icons-material/Edit';
+import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
 
 const positions = {
     "pres": "President",
@@ -19,6 +19,7 @@ const positions = {
 
 function AboutUs(params) {
     const [excom, setExcom] = useState([]);
+    const [name, setName] = useState('');
     async function getExcomFromSupabase() {
         const { data, error } = await supabase.from('excom').select('*');
         if (error) {
@@ -27,9 +28,21 @@ function AboutUs(params) {
         }
         return data;
     }
+    async function editExcomInSupabase(name, position, id) {
+        const { data, error } = await supabase.from('excom').update({ name: name, position: position }).eq('id', id);
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        const updatedData = await getExcomFromSupabase();
+        setExcom(updatedData);
+        return data;
+    }
     useEffect(() => {
         getExcomFromSupabase().then(data => setExcom(data));
     }, []);
+    const positionOrder = ['pres', 'vpe', 'vpm', 'vppr', 'sec', 'tres', 'saa'];
+    const sortedExcom = [...excom].sort((a, b) => positionOrder.indexOf(a.position) - positionOrder.indexOf(b.position));
     return (
         <div>
             <Navbar />
@@ -59,16 +72,24 @@ function AboutUs(params) {
                                 Position
                             </th>
                         </tr>
-                        {excom.map((row, index) => (
+                        {sortedExcom.map((row, index) => (
                             <tr key={index}>
-                                <th>
-                                    <IconButton style={{
-                                        color: '#F2DF74'
-                                    }}>
-                                        <EditIcon />
+                                <td>
+                                    <IconButton onClick={() => editExcomInSupabase(row.name, row.position, row.id)} style={{ color: '#CD202C' }}>
+                                        <SaveTwoToneIcon />
                                     </IconButton>
-                                </th>
-                                <td>{row.name}</td>
+                                </td>
+                                <td>
+                                    <input
+                                        className="form-control mt-1"
+                                        type="text"
+                                        value={row.name}
+                                        onChange={(e) => {
+                                            const newName = e.target.value;
+                                            setExcom(excom.map((item) => item.id === row.id ? { ...item, name: newName } : item));
+                                        }}
+                                    />
+                                </td>
                                 <td>{positions[row.position]}</td>
                             </tr>
                         ))}

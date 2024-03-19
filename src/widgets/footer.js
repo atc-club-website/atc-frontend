@@ -11,7 +11,11 @@ function Footer(params) {
                 <p>
                     Meetings are held on every 2nd and 4th Wednesday of the month
                 </p>
+            </div>
+            <div className="club-banner-footer">
                 <p>
+                    VPM contact number: 000 000 0000
+                    <br />
                     <a href="mailto" target="_blank"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
                     <a href="https://www.facebook.com" target="_blank">
                         <img src="https://img.shields.io/badge/Facebook-316FF6?style=for-the-badge&logo=facebook&logoColor=white" />
@@ -20,9 +24,7 @@ function Footer(params) {
                         <img src="https://img.shields.io/badge/Instagram-E1306C?style=for-the-badge&logo=instagram&logoColor=white" />
                     </a>
                 </p>
-            </div>
-            <div className="club-banner-footer">
-                <p>
+                <p className="disclaimer">
                     “The information on this website is for the sole use of Toastmasters’ members, for Toastmasters business only.
                     It is not to be used for solicitation and distribution of non-Toastmasters material or information.”
                 </p>

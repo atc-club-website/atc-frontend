@@ -80,13 +80,21 @@
 
 .club-banner-footer {
     text-align: center;
-    padding: 30px 0;
     margin-right: 30px;
     width: 50%;
 }
 
 .club-banner-footer p {
     font-family: "montserrat-r";
+}
+
+.disclaimer {
+    font-family: "montserrat-r";
+    font-size: 0.8rem;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 100%;
 }
 
 @media (max-width: 1000px) {
