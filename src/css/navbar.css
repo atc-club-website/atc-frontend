@@ -12,6 +12,7 @@
     position: fixed;
     backdrop-filter: blur(15px);
     font-family: "montserrat-r";
+    z-index: 2;
 }
 
 .navbar-container {
@@ -95,6 +96,52 @@
     padding: 0;
     text-align: center;
     width: 100%;
+}
+
+.logout-modal {
+    position: fixed;
+    top: 300%;
+    background: white;
+    z-index: 3;
+    border: 3.5px solid var(--dark_blue);
+}
+
+.logout-yes-btn {
+    background-color: var(--dark_blue);
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-family: 'myriad-pro-b';
+}
+
+.logout-yes-btn:hover {
+    background-color: transparent;
+    color: var(--dark_blue);
+    border: 2px solid var(--dark_blue);
+}
+
+.logout-no-btn {
+    background-color: var(--red);
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-family: 'myriad-pro-b';
+}
+
+.logout-no-btn:hover {
+    background-color: transparent;
+    color: var(--red);
+    border: 2px solid var(--red);
 }
 
 @media (max-width: 1000px) {

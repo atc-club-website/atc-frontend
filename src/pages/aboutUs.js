@@ -20,6 +20,16 @@ const positions = {
 function AboutUs(params) {
     const [excom, setExcom] = useState([]);
     const [name, setName] = useState('');
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const checkLoginStatus = async () => {
+        const { data, error } = await supabase.auth.getSession()
+        console.log(data.session != null);
+        if (data.session != null) {
+            return true;
+        }
+        return false;
+    }
     async function getExcomFromSupabase() {
         const { data, error } = await supabase.from('excom').select('*');
         if (error) {
@@ -40,6 +50,12 @@ function AboutUs(params) {
     }
     useEffect(() => {
         getExcomFromSupabase().then(data => setExcom(data));
+        const checkStatus = async () => {
+            const status = await checkLoginStatus();
+            setIsLoggedIn(status);
+        };
+
+        checkStatus();
     }, []);
     const positionOrder = ['pres', 'vpe', 'vpm', 'vppr', 'sec', 'tres', 'saa'];
     const sortedExcom = [...excom].sort((a, b) => positionOrder.indexOf(a.position) - positionOrder.indexOf(b.position));
@@ -61,10 +77,11 @@ function AboutUs(params) {
                 <div className="table">
                     <table>
                         <tr>
-                            <th style={{
-                                width: '20px'
-                            }}>
-                            </th>
+                            {isLoggedIn && (
+                                <th style={{
+                                    width: '20px'
+                                }} />
+                            )}
                             <th>
                                 Name
                             </th>
@@ -74,22 +91,34 @@ function AboutUs(params) {
                         </tr>
                         {sortedExcom.map((row, index) => (
                             <tr key={index}>
-                                <td>
-                                    <IconButton onClick={() => editExcomInSupabase(row.name, row.position, row.id)} style={{ color: '#CD202C' }}>
-                                        <SaveTwoToneIcon />
-                                    </IconButton>
-                                </td>
-                                <td>
-                                    <input
-                                        className="form-control mt-1"
-                                        type="text"
-                                        value={row.name}
-                                        onChange={(e) => {
-                                            const newName = e.target.value;
-                                            setExcom(excom.map((item) => item.id === row.id ? { ...item, name: newName } : item));
-                                        }}
-                                    />
-                                </td>
+                                {
+                                    isLoggedIn && (
+                                        <td>
+                                            <IconButton onClick={() => editExcomInSupabase(row.name, row.position, row.id)} style={{ color: '#CD202C' }}>
+                                                <SaveTwoToneIcon />
+                                            </IconButton>
+                                        </td>
+                                    )
+                                }
+                                {
+                                    isLoggedIn ? (
+                                        <td>
+                                            <input
+                                                className="form-control mt-1"
+                                                type="text"
+                                                value={row.name}
+                                                onChange={(e) => {
+                                                    const newName = e.target.value;
+                                                    setExcom(excom.map((item) => item.id === row.id ? { ...item, name: newName } : item));
+                                                }}
+                                            />
+                                        </td>
+                                    ) : (
+                                        <td>
+                                            {row.name}
+                                        </td>
+                                    )
+                                }
                                 <td>{positions[row.position]}</td>
                             </tr>
                         ))}

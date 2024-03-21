@@ -6,11 +6,11 @@ import { Container } from "@mui/material";
 import Footer from "../widgets/footer";
 
 var design_links = {
-    "Toastmasters International Logo": "https://toastmasterscdn.azureedge.net/medias/images/brand-items/logos-and-wordmarks/toastmasters-logo-color-png.png",
-    "Toastmasters International Cover Photo": "https://toastmasterscdn.azureedge.net/medias/images/brand-items/facebook-cover-photo-blue.png",
-    "Toastmasters International Wordmark": "https://toastmasterscdn.azureedge.net/medias/images/brand-items/toastmasterswordmarkcolor.png",
-    "Pathways Logo": "https://toastmasterscdn.azureedge.net/medias/images/pathways/logos/pathways-logo-final-rgb-png.png",
-    "Pathways Badges": "https://toastmasterscdn.azureedge.net/medias/images/brand-items/pathways-badges-png.zip"
+    "Toastmasters International Logo": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/tm_logo.png?t=2024-03-21T18%3A15%3A43.840Z",
+    "Toastmasters International Cover Photo": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/tm_cover.png?t=2024-03-21T18%3A16%3A06.658Z",
+    "Toastmasters International Wordmark": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/tm_wmark.png?t=2024-03-21T18%3A16%3A14.442Z",
+    "Pathways Logo": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/path_logo.png?t=2024-03-21T18%3A16%3A24.105Z",
+    "Pathways Badges": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/pathways-badges-png.zip?t=2024-03-21T18%3A16%3A33.425Z"
 }
 
 var video_links = {
@@ -18,6 +18,16 @@ var video_links = {
     "Navigating a Path": "https://www.youtube.com/watch?v=5jg32sw8pZM",
     "Submitting a Level": "https://www.youtube.com/watch?v=yrevskWIKE8",
     "Completing a Project": "https://www.youtube.com/watch?v=xZ-LGLSqZWk"
+}
+
+var script_links = {
+    "Toastmaster of the Day Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675G-toastmaster-script-and-checklist-letter-size.pdf",
+    "Table Topics Master Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675F-topicsmaster-script-and-log-letter-size.pdf",
+    "Timer Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675E-timer-script-and-log-letter-size.pdf",
+    "Grammarian Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675C-grammarian-script-and-log-letter-size.pdf",
+    "Ah-Counter Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675A-ah-counter-script-and-log-letter-size.pdf",
+    "General Evaluator Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675B-general-evaluator-checklist-letter-size.pdf",
+    "Sergeant at Arms Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/SAA-Script.pdf"
 }
 
 function Resources(params) {
@@ -39,39 +49,91 @@ function Resources(params) {
                         <p className="subheader">Scripts</p>
                         <div className="table links-table">
                             <table>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["Toastmaster of the Day Script"]);
+                                    }
+                                }>
+                                    <td>
+                                        Toastmaster of the Day Script
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["Table Topics Master Script"]);
+                                    }
+                                }>
                                     <td>
                                         Table Topics Master Script
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["Timer Script"]);
+                                    }
+                                }>
                                     <td>
                                         Timer Script
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["Grammarian Script"]);
+                                    }
+                                }>
                                     <td>
                                         Grammarian Script
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["Ah-Counter Script"]);
+                                    }
+                                }>
                                     <td>
                                         Ah-Counter Script
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["General Evaluator Script"]);
+                                    }
+                                }>
                                     <td>
                                         General Evaluator Script
                                     </td>
                                 </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(script_links["Sergeant at Arms Script"]);
+                                    }
+                                }>
+                                    <td>
+                                        Sergeant at Arms Script
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <div style={{
+                        width: '100%'
+                    }}>
+                        <p className="subheader">Newsletters</p>
+                        <div className="table links-table">
+                            <table>
                                 <tr>
                                     <td>
-                                        Evaluator Script
+                                        Toastmasters International Newsletter
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Sergeant at Arms Script
+                                        District 116 Newsletter
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Aurora Toastmasters Club Newsletter
                                     </td>
                                 </tr>
                             </table>
