@@ -1,0 +1,52 @@
+@import './colors.css';
+
+.App {
+    background-color: rgb(255, 255, 255);
+}
+
+.Auth-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.Auth-form {
+    width: 500px;
+    box-shadow: 5px 5px 10px 2px #00000071;
+}
+
+.Auth-form-content {
+    padding: 9%;
+}
+
+.Auth-form-title {
+    text-align: center;
+    font-size: 2.5rem;
+    color: var(--dark_blue);
+}
+
+.form-control {
+    overflow: hidden;
+    height: 40px;
+    margin-top: 15px;
+}
+
+.btn {
+    background-color: var(--dark_blue);
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.btn:hover {
+    background-color: transparent;
+    color: var(--dark_blue);
+    border: 2px solid var(--dark_blue);
+}

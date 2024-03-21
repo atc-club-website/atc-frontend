@@ -6,6 +6,7 @@ import Pathways from './pages/pathways';
 import ClubMeetingFormat from './pages/clubMeeting';
 import Resources from './pages/resources';
 import ClubAchievements from './pages/achievements';
+import Login from './pages/login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/clubMeetingFormat" element={<ClubMeetingFormat />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/clubAchievements" element={<ClubAchievements />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
     </Router>
   );
