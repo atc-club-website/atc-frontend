@@ -3,7 +3,7 @@ function Footer(params) {
         <div className="footer">
             <div className="meeting-info-footer">
                 <p>
-                    Club No. 0000000, Area 00, Division A, District 82
+                    Club No. 06488017, Area 26, Division G, District 116
                 </p>
                 <p>
                     Meeting Venue: 000, 00th Lane, 00th Street, Colombo 00
@@ -11,10 +11,13 @@ function Footer(params) {
                 <p>
                     Meetings are held on every 2nd and 4th Wednesday of the month
                 </p>
+                <div className="developer">
+                    Developed by Aadi Umrani
+                </div>
             </div>
             <div className="club-banner-footer">
                 <p>
-                    VPM contact number: 000 000 0000
+                    VPM contact number: +974 3393 0257
                     <br />
                     <a href="mailto" target="_blank"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
                     <a href="https://www.facebook.com" target="_blank">
