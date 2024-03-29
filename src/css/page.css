@@ -60,3 +60,9 @@
 .form-control:focus {
     border-bottom-color: var(--dark_blue);
 }
+
+.members-list-link {
+    color: var(--dark_blue);
+    text-decoration: none;
+    font-family: 'montserrat-sb';
+}

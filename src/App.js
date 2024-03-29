@@ -7,6 +7,7 @@ import ClubMeetingFormat from './pages/clubMeeting';
 import Resources from './pages/resources';
 import ClubAchievements from './pages/achievements';
 import Login from './pages/login';
+import MembersTable from './pages/members';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/resources" element={<Resources />} />
         <Route path="/clubAchievements" element={<ClubAchievements />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/members" element={<MembersTable />} />
       </Routes>
     </Router>
   );

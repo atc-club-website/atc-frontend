@@ -15,6 +15,7 @@ const positions = {
     "sec": "Secretary",
     "tres": "Treasurer",
     "saa": "Sergeant at Arms",
+    "ipp": "Immediate Past President"
 }
 
 function AboutUs(params) {
@@ -57,7 +58,7 @@ function AboutUs(params) {
 
         checkStatus();
     }, []);
-    const positionOrder = ['pres', 'vpe', 'vpm', 'vppr', 'sec', 'tres', 'saa'];
+    const positionOrder = ['pres', 'vpe', 'vpm', 'vppr', 'sec', 'tres', 'saa', 'ipp'];
     const sortedExcom = [...excom].sort((a, b) => positionOrder.indexOf(a.position) - positionOrder.indexOf(b.position));
     return (
         <div>
@@ -123,6 +124,10 @@ function AboutUs(params) {
                             </tr>
                         ))}
                     </table>
+                    <a className="members-list-link" href="/members">Members List</a>
+                    <br />
+                    <br />
+                    <br />
                 </div>
             </Container>
             <Footer />
