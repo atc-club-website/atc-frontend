@@ -23,6 +23,7 @@ function HomePage() {
     const [showAgendaImage, setShowAgendaImage] = useState(false);
     const [showPresidentMessage, setShowPresidentMessage] = useState(false);
     const [showAddMeeting, setShowAddMeeting] = useState(false);
+    const [showUpdateMeeting, setShowUpdateMeeting] = useState(false);
     async function checkLoginStatus() {
         const { data, error } = await supabase.auth.getSession()
         if (data.session != null) {
@@ -55,15 +56,10 @@ function HomePage() {
             throw error;
         }
 
-        const { publicURL, error: urlError } = supabase.storage
+        const publicURLData = supabase.storage
             .from('flyers')
             .getPublicUrl(file.name);
-        if (urlError) {
-            console.error(urlError);
-            throw urlError;
-        }
-
-        setNewFlyerUrl(publicURL);
+        setNewFlyerUrl(publicURLData.data.publicUrl);
     }
     async function uploadAgenda(file) {
         const { data, error } = await supabase.storage
@@ -77,18 +73,24 @@ function HomePage() {
             throw error;
         }
 
-        const { publicURL, error: urlError } = supabase.storage
+        const publicURLData = supabase.storage
             .from('agendas')
             .getPublicUrl(file.name);
-        if (urlError) {
-            console.error(urlError);
-            throw urlError;
-        }
-
-        setNewAgendaUrl(publicURL);
+        setNewAgendaUrl(publicURLData.data.publicUrl);
     }
     async function addMeeting(date, flyerUrl, agendaUrl) {
         const { data, error } = await supabase.from('meetings').insert([{ date: date, flyerUrl: flyerUrl, agendaUrl: agendaUrl }]);
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        return data;
+    }
+    async function updateMeeting(date, flyerUrl, agendaUrl) {
+        const { data, error } = await supabase
+            .from('meetings')
+            .update({ date: date, flyerUrl: flyerUrl, agendaUrl: agendaUrl })
+            .match({ date: date });
         if (error) {
             console.error(error);
             throw error;
@@ -196,110 +198,280 @@ function HomePage() {
                 </div>
             </div>
             <p className='home-bottom-half'>
-                <div className="home-upcoming-meeting-container">
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'space-between',
-                        textAlign: 'center',
-                        verticalAlign: 'baseline',
-                        height: '100%',
-                        padding: '25px',
-                    }}>
-                        <h2 style={{
-                            color: 'white',
-                            textAlign: 'center'
-                        }}>Upcoming<br />Meeting</h2>
-                        <h3 style={{
-                            color: 'white',
-                            textAlign: 'center'
-                        }}>{meetingDate}</h3>
-                        {
-                            showAddMeeting && (
+                <div>
+                    <div className="home-upcoming-meeting-container">
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            justifyContent: 'space-between',
+                            textAlign: 'center',
+                            verticalAlign: 'baseline',
+                            padding: '25px',
+                        }}>
+                            <h2 style={{
+                                color: 'white',
+                                textAlign: 'center'
+                            }}>Upcoming<br />Meeting</h2>
+                            <h3 style={{
+                                color: 'white',
+                                textAlign: 'center'
+                            }}>{meetingDate}</h3>
+                            {
+                                showAddMeeting && (
+                                    <div style={{
+                                        position: 'fixed',
+                                        top: '20%',
+                                        left: '40%',
+                                        width: '400px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        zIndex: 1000,
+                                    }}>
+                                        <div style={{
+                                            backgroundColor: 'white',
+                                            padding: '25px',
+                                            width: '80%',
+                                            overflow: 'auto',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                            border: '3.5px solid #004165',
+                                        }}>
+                                            <h2>Add Meeting</h2>
+                                            <label htmlFor='date' style={{ fontFamily: 'myriad-pro-b', color: '#004165' }}>Date</label>
+                                            <TextField
+                                                type='date'
+                                                id='date'
+                                                value={newMeetingDate}
+                                                onChange={(e) => setNewMeetingDate(e.target.value)}
+                                            />
+                                            <br />
+                                            <label htmlFor="flyer-button" style={{
+                                                marginBottom: '10px'
+                                            }}>
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    accept="image/*"
+                                                    id="flyer-button"
+                                                    type="file"
+                                                    onChange={(e) => uploadFlyer(e.target.files[0])}
+                                                />
+                                                <Button style={{
+                                                    border: 'none',
+                                                    backgroundColor: 'white',
+                                                    color: '#004165',
+                                                    fontFamily: 'myriad-pro-b'
+                                                }} variant="contained" component="span" startIcon={
+                                                    <CloudUploadIcon style={{
+                                                        color: '#004165'
+                                                    }} />
+                                                }>
+                                                    Upload Flyer
+                                                </Button>
+                                            </label>
+                                            <label htmlFor="agenda-button">
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    accept="image/*"
+                                                    id="agenda-button"
+                                                    type="file"
+                                                    onChange={(e) => uploadAgenda(e.target.files[0])}
+                                                />
+                                                <Button style={{
+                                                    border: 'none',
+                                                    backgroundColor: 'white',
+                                                    color: '#004165',
+                                                    fontFamily: 'myriad-pro-b'
+                                                }} variant="contained" component="span" startIcon={
+                                                    <CloudUploadIcon style={{
+                                                        color: '#004165'
+                                                    }} />
+                                                }>
+                                                    Upload Agenda
+                                                </Button>
+                                            </label>
+                                            <br />
+                                            <button onClick={() => setShowAddMeeting(false)} className="add-no-btn" style={{
+                                                marginBottom: '10px'
+                                            }}>Cancel</button>
+                                            <button onClick={() => {
+                                                console.log("Adding meeting")
+                                                function convertDate(inputFormat) {
+                                                    function pad(s) { return (s < 10) ? '0' + s : s; }
+                                                    var parts = inputFormat.split('-');
+                                                    var d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                                                    return [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-');
+                                                }
+                                                let convertedDate = convertDate(newMeetingDate);
+                                                addMeeting(convertedDate, newFlyerUrl, newAgendaUrl).then(() => {
+                                                    setShowAddMeeting(false);
+                                                    setNewMeetingDate('');
+                                                    setNewFlyerUrl('');
+                                                    setNewAgendaUrl('');
+                                                });
+                                            }} className="add-yes-btn">Add</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                            {
+                                showUpdateMeeting && (
+                                    <div style={{
+                                        position: 'fixed',
+                                        top: '20%',
+                                        left: '40%',
+                                        width: '400px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        zIndex: 1000,
+                                    }}>
+                                        <div style={{
+                                            backgroundColor: 'white',
+                                            padding: '25px',
+                                            width: '80%',
+                                            overflow: 'auto',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                            border: '3.5px solid #004165',
+                                        }}>
+                                            <h2>Update Upcoming Meeting</h2>
+                                            <label htmlFor='date' style={{ fontFamily: 'myriad-pro-b', color: '#004165' }}>Date: {meetingDate}</label>
+                                            <br />
+                                            <label htmlFor="flyer-button" style={{
+                                                marginBottom: '10px'
+                                            }}>
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    accept="image/*"
+                                                    id="flyer-button"
+                                                    type="file"
+                                                    onChange={(e) => uploadFlyer(e.target.files[0])}
+                                                />
+                                                <Button style={{
+                                                    border: 'none',
+                                                    backgroundColor: 'white',
+                                                    color: '#004165',
+                                                    fontFamily: 'myriad-pro-b'
+                                                }} variant="contained" component="span" startIcon={
+                                                    <CloudUploadIcon style={{
+                                                        color: '#004165'
+                                                    }} />
+                                                }>
+                                                    Upload Flyer
+                                                </Button>
+                                            </label>
+                                            <label htmlFor="agenda-button">
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    accept="image/*"
+                                                    id="agenda-button"
+                                                    type="file"
+                                                    onChange={(e) => uploadAgenda(e.target.files[0])}
+                                                />
+                                                <Button style={{
+                                                    border: 'none',
+                                                    backgroundColor: 'white',
+                                                    color: '#004165',
+                                                    fontFamily: 'myriad-pro-b'
+                                                }} variant="contained" component="span" startIcon={
+                                                    <CloudUploadIcon style={{
+                                                        color: '#004165'
+                                                    }} />
+                                                }>
+                                                    Upload Agenda
+                                                </Button>
+                                            </label>
+                                            <br />
+                                            <button onClick={() => setShowUpdateMeeting(false)} className="add-no-btn" style={{
+                                                marginBottom: '10px'
+                                            }}>Cancel</button>
+                                            <button onClick={() => {
+                                                console.log("Updating meeting")
+                                                function convertDate(inputFormat) {
+                                                    function pad(s) { return (s < 10) ? '0' + s : s; }
+                                                    var parts = inputFormat.split('-');
+                                                    var d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                                                    return [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-');
+                                                }
+                                                let convertedDate = convertDate(meetingDate);
+                                                updateMeeting(convertedDate, newFlyerUrl, newAgendaUrl).then(() => {
+                                                    setShowUpdateMeeting(false);
+                                                    setNewMeetingDate('');
+                                                    setNewFlyerUrl('');
+                                                    setNewAgendaUrl('');
+                                                });
+                                            }} className="add-yes-btn">Update</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <div className='home-flyer-container'>
+                            <img
+                                src={flyerUrl}
+                                alt='flyer pic'
+                                onClick={() => setShowFlyerImage(true)}
+                            />
+                            {showFlyerImage && (
                                 <div style={{
                                     position: 'fixed',
-                                    top: '20%',
-                                    left: '40%',
-                                    width: '400px',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
                                     zIndex: 1000,
                                 }}>
-                                    <div style={{
-                                        backgroundColor: 'white',
-                                        padding: '25px',
-                                        width: '80%',
-                                        overflow: 'auto',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        gap: '20px',
-                                        boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
-                                        border: '3.5px solid #004165',
-                                    }}>
-                                        <h2 style={{ marginBottom: '20px' }}>Add Meeting</h2>
-                                        <label htmlFor='date' style={{ fontFamily: 'myriad-pro-b', color: '#004165' }}>Date</label>
-                                        <TextField
-                                            type='date'
-                                            id='date'
-                                            value={newMeetingDate}
-                                            onChange={(e) => setNewMeetingDate(e.target.value)}
-                                        />
-                                        <label htmlFor="flyer-button">
-                                            <input
-                                                style={{ display: 'none' }}
-                                                accept="image/*"
-                                                id="flyer-button"
-                                                type="file"
-                                                onChange={(e) => uploadFlyer(e.target.files[0])}
-                                            />
-                                            <Button style={{
-                                                border: 'none',
-                                                backgroundColor: 'white',
-                                                color: '#004165',
-                                                fontFamily: 'myriad-pro-b'
-                                            }} variant="contained" component="span" startIcon={
-                                                <CloudUploadIcon style={{
-                                                    color: '#004165'
-                                                }} />
-                                            }>
-                                                Upload Flyer
-                                            </Button>
-                                        </label>
-                                        <label htmlFor="agenda-button">
-                                            <input
-                                                style={{ display: 'none' }}
-                                                accept="image/*"
-                                                id="agenda-button"
-                                                type="file"
-                                                onChange={(e) => uploadAgenda(e.target.files[0])}
-                                            />
-                                            <Button style={{
-                                                border: 'none',
-                                                backgroundColor: 'white',
-                                                color: '#004165',
-                                                fontFamily: 'myriad-pro-b'
-                                            }} variant="contained" component="span" startIcon={
-                                                <CloudUploadIcon style={{
-                                                    color: '#004165'
-                                                }} />
-                                            }>
-                                                Upload Agenda
-                                            </Button>
-                                        </label>
-                                        <button onClick={() => setShowAddMeeting(false)} className="add-no-btn">Cancel</button>
-                                        <button onClick={() => {
-                                            console.log("Adding meeting")
-                                            addMeeting(newMeetingDate, newFlyerUrl, newAgendaUrl).then(() => {
-                                                setShowAddMeeting(false);
-                                                setNewMeetingDate('');
-                                                setNewFlyerUrl('');
-                                                setNewAgendaUrl('');
-                                            });
-                                        }} className="add-yes-btn">Add</button>
-                                    </div>
+                                    <img
+                                        src={flyerUrl}
+                                        alt='flyer pic'
+                                        style={{ maxHeight: '80%', maxWidth: '80%' }}
+                                        onClick={() => setShowFlyerImage(false)}
+                                    />
                                 </div>
+                            )}
+                        </div>
+                        <div className='home-agenda-container'>
+                            <img
+                                src={agendaUrl}
+                                alt='agenda pic'
+                                onClick={() => setShowAgendaImage(true)}
+                            />
+                            {showAgendaImage && (
+                                <div style={{
+                                    position: 'fixed',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '100%',
+                                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    zIndex: 1000,
+                                }}>
+                                    <img
+                                        src={agendaUrl}
+                                        alt='agenda pic'
+                                        style={{ maxHeight: '80%', maxWidth: '80%' }}
+                                        onClick={() => setShowAgendaImage(false)}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    </div>
+                    <div className="home-meeting-buttons-container">
+                        {
+                            isLoggedIn && (
+                                <button className="addMeetingButton" onClick={() => setShowUpdateMeeting(true)}>Update Meeting</button>
                             )
                         }
                         {
@@ -307,62 +479,6 @@ function HomePage() {
                                 <button className="addMeetingButton" onClick={() => setShowAddMeeting(true)}>Add Meeting</button>
                             )
                         }
-                    </div>
-                    <div className='home-flyer-container'>
-                        <img
-                            src={flyerUrl}
-                            alt='flyer pic'
-                            onClick={() => setShowFlyerImage(true)}
-                        />
-                        {showFlyerImage && (
-                            <div style={{
-                                position: 'fixed',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%',
-                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                zIndex: 1000,
-                            }}>
-                                <img
-                                    src={flyerUrl}
-                                    alt='flyer pic'
-                                    style={{ maxHeight: '80%', maxWidth: '80%' }}
-                                    onClick={() => setShowFlyerImage(false)}
-                                />
-                            </div>
-                        )}
-                    </div>
-                    <div className='home-agenda-container'>
-                        <img
-                            src={agendaUrl}
-                            alt='agenda pic'
-                            onClick={() => setShowAgendaImage(true)}
-                        />
-                        {showAgendaImage && (
-                            <div style={{
-                                position: 'fixed',
-                                top: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '100%',
-                                backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                zIndex: 1000,
-                            }}>
-                                <img
-                                    src={agendaUrl}
-                                    alt='agenda pic'
-                                    style={{ maxHeight: '80%', maxWidth: '80%' }}
-                                    onClick={() => setShowAgendaImage(false)}
-                                />
-                            </div>
-                        )}
                     </div>
                 </div>
                 <div className='home-upcoming-events-container'>
@@ -376,10 +492,6 @@ function HomePage() {
                         <li>Event 4</li>
                         <li>Event 5</li>
                         <li>Event 6</li>
-                        <li>Event 7</li>
-                        <li>Event 8</li>
-                        <li>Event 9</li>
-                        <li>Event 10</li>
                     </ul>
                 </div>
             </p>

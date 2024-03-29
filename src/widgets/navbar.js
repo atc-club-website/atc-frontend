@@ -70,7 +70,7 @@ const Navbar = () => {
             <a href='/clubMeetingFormat'>Typical Club Meeting</a>
             <a href='/pathways'>Pathways</a>
             <a href='/clubAchievements'>Achievements</a>
-            <a href='#'>Gallery</a>
+            <a href='/gallery'>Gallery</a>
             <a href='/resources'>Resources</a>
             {
               isLoggedIn ?
