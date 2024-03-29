@@ -1,55 +1,136 @@
 @import url('./colors.css');
 
-.home-group-pic-container {
-    background-image: url('../assets/group_pic.jpg');
-    height: 90vh;
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+.home-pic-container {
+    width: 70%;
+    padding: 10px;
 }
 
-.mission-vision-objectives-meetinginfo {
-    display: flex;
-    flex-direction: row;
+.home-pic-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
-.mission-vision-objectives {
+.home-top-half {
     display: flex;
     flex-direction: row;
     width: 100%;
 }
 
-.mission-vision {
-    padding: 20px 0px 20px 40px;
-    width: 100%;
-}
-
-.objectives {
+.home-pres-about-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
     padding: 20px;
-    width: 100%;
 }
 
-.president-about-content-home {
+.read-more {
+    background-color: transparent;
+    color: var(--dark_blue);
+    cursor: pointer;
+    font-family: 'montserrat-r';
+}
+
+.home-bottom-half {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    margin: 0%;
+    position: relative;
+    border-bottom: 3px solid white;
     background-color: var(--dark_blue);
-    color: var(--white);
+}
+
+.home-upcoming-meeting-container {
     display: flex;
     flex-direction: row;
+    height: 100%;
+    width: 70%;
+    padding: 10px;
+    margin: auto 0;
 }
 
-.president-message-home {
-    padding: 20px 40px;
-    width: 100%;
-}
-
-.about-content-home {
-    padding: 20px 40px 20px 0px;
-    width: 100%;
-}
-
-.meetinginfo-content {
-    padding: 20px 40px;
-    width: 100%;
+.home-flyer-container, .home-agenda-container {
     display: flex;
-    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+}
+
+.home-flyer-container img, .home-agenda-container img {
+    margin-left: 10px;
+    height: 100%;
+    cursor: pointer;
+    object-fit: contain;
+}
+
+.home-info-container {
+    background-color: var(--dark_blue);
+    text-align: center;
+    color: white;
+    height: 100%;
+}
+
+.home-upcoming-events-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    color: white;
+    padding: 10px;
+}
+
+.addMeetingButton {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1rem;
+}
+
+.addMeetingButton:hover {
+    background-color: white;
+    color: var(--dark_blue);
+    border: 2px solid transparent;
+}
+
+.add-yes-btn {
+    background-color: var(--dark_blue);
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    font-size: 1.1rem;
+    font-family: 'myriad-pro-b';
+}
+
+.add-yes-btn:hover {
+    background-color: transparent;
+    color: var(--dark_blue);
+    border: 2px solid var(--dark_blue);
+}
+
+.add-no-btn {
+    background-color: var(--red);
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    margin-top: 10px;
+    font-size: 1.1rem;
+    font-family: 'myriad-pro-b';
+}
+
+.add-no-btn:hover {
+    background-color: transparent;
+    color: var(--red);
+    border: 2px solid var(--red);
 }
