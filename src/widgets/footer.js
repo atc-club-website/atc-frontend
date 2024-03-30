@@ -6,9 +6,6 @@ function Footer(params) {
                     Club No. 06488017, Area 26, Division G, District 116
                 </p>
                 <p>
-                    Meeting Venue: 000, 00th Lane, 00th Street, Colombo 00
-                </p>
-                <p>
                     Meetings are held on every 2nd and 4th Wednesday of the month
                 </p>
                 <div className="developer">
@@ -19,11 +16,11 @@ function Footer(params) {
                 <p>
                     VPM contact number: +974 3393 0257
                     <br />
-                    <a href="mailto" target="_blank"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
-                    <a href="https://www.facebook.com" target="_blank">
+                    <a href="mailto:auroratoastmastersclub123@gmail.com" target="_blank"><img src="https://img.shields.io/badge/Gmail-C71610?style=for-the-badge&logo=gmail&logoColor=white" /></a>
+                    <a href="https://www.facebook.com/profile.php?id=100068840050696" target="_blank">
                         <img src="https://img.shields.io/badge/Facebook-316FF6?style=for-the-badge&logo=facebook&logoColor=white" />
                     </a>
-                    <a href="https://www.instagram.com" target="_blank">
+                    <a href="https://www.instagram.com/auroratoastmasterclub/" target="_blank">
                         <img src="https://img.shields.io/badge/Instagram-E1306C?style=for-the-badge&logo=instagram&logoColor=white" />
                     </a>
                 </p>

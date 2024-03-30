@@ -30,6 +30,20 @@ var script_links = {
     "Sergeant at Arms Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/SAA-Script.pdf"
 }
 
+var newsletter_links = {
+    "The Rise - Aspirations": "https://www.flipsnack.com/AuroraToastmaster/the-rise-3a-2019-20.html",
+    "The Rise - Step Up": "https://issuu.com/pradnya.um/docs/the_rise_2-2019-20",
+    "The Rise - Celebrations": "https://issuu.com/pradnya.um/docs/the_rise_1-2019-20",
+    "The Rise - Miles & Smiles": "https://online.fliphtml5.com/wvmpo/kwpl/",
+    "The Rise - Enlightening Minds": "https://online.fliphtml5.com/tltps/lpao/?fbclid=IwAR1WyKFECqSVx5qs6h4Vqc9kYU-talq4HrO3zzpsb74nG_sQm8-cC7zgrrQ#p=1",
+    "The Rise - Spreading Wings": "https://online.fliphtml5.com/ugmlz/tzpa/",
+    "The Rise - Aim Ahead": "https://online.fliphtml5.com/ugmlz/qehd/?1601454799003https://online.fliphtml5.com/ugmlz/qehd/?1601454799003https://online.fliphtml5.com/ugmlz/qehd/?1601454799003",
+    "The Rise - Soar High": "https://online.fliphtml5.com/covbr/bdky/",
+    "The Rise - Get Set Go": "https://issuu.com/sahityareddy/docs/the_rise_upload?fbclid=IwAR0yDdiQINLpthfYbbL8QvkvCs6S9IQNpcq4-RDr9gcKTgzw9ihqnX9sN2g",
+    "The Rise - Game is On": "https://issuu.com/sahityareddy/docs/newsletter-game_is_on",
+    "The Rise - Dream Run": "https://issuu.com/sahityareddy/docs/dream_run-_final?fbclid=IwAR03ME1qWRx6d6DBXNhiX5bpOpMVq1oQ_TWONNZJ33jAMmI4ZZETSxO1PrE"
+}
+
 function Resources(params) {
     return (
         <div>
@@ -121,19 +135,103 @@ function Resources(params) {
                         <p className="subheader">Newsletters</p>
                         <div className="table links-table">
                             <table>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Aspirations"]);
+                                    }
+                                }>
                                     <td>
-                                        Toastmasters International Newsletter
+                                        The Rise - Aspirations
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Step Up"]);
+                                    }
+                                }>
                                     <td>
-                                        District 116 Newsletter
+                                        The Rise - Step Up
                                     </td>
                                 </tr>
-                                <tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Celebrations"]);
+                                    }
+                                }>
                                     <td>
-                                        Aurora Toastmasters Club Newsletter
+                                        The Rise - Celebrations
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Miles & Smiles"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Miles & Smiles
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Enlightening Minds"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Enlightening Minds
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Spreading Wings"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Spreading Wings
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Aim Ahead"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Aim Ahead
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Soar High"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Soar High
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Get Set Go"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Get Set Go
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Game is On"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Game is On
+                                    </td>
+                                </tr>
+                                <tr onClick={
+                                    () => {
+                                        window.open(newsletter_links["The Rise - Dream Run"]);
+                                    }
+                                }>
+                                    <td>
+                                        The Rise - Dream Run
                                     </td>
                                 </tr>
                             </table>
