@@ -49,7 +49,7 @@ function HomePage() {
             .from('flyers')
             .upload(file.name, file, {
                 cacheControl: '3600',
-                upsert: false,
+                upsert: true,
             });
         if (error) {
             console.error(error);
@@ -66,7 +66,7 @@ function HomePage() {
             .from('agendas')
             .upload(file.name, file, {
                 cacheControl: '3600',
-                upsert: false,
+                upsert: true,
             });
         if (error) {
             console.error(error);
@@ -302,7 +302,7 @@ function HomePage() {
                                                     function pad(s) { return (s < 10) ? '0' + s : s; }
                                                     var parts = inputFormat.split('-');
                                                     var d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-                                                    return [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-');
+                                                    return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
                                                 }
                                                 let convertedDate = convertDate(newMeetingDate);
                                                 addMeeting(convertedDate, newFlyerUrl, newAgendaUrl).then(() => {
@@ -396,7 +396,7 @@ function HomePage() {
                                                     function pad(s) { return (s < 10) ? '0' + s : s; }
                                                     var parts = inputFormat.split('-');
                                                     var d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-                                                    return [d.getFullYear(), pad(d.getMonth()+1), pad(d.getDate())].join('-');
+                                                    return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
                                                 }
                                                 let convertedDate = convertDate(meetingDate);
                                                 updateMeeting(convertedDate, newFlyerUrl, newAgendaUrl).then(() => {
@@ -468,18 +468,14 @@ function HomePage() {
                             )}
                         </div>
                     </div>
-                    <div className="home-meeting-buttons-container">
-                        {
-                            isLoggedIn && (
+                    {
+                        isLoggedIn && (
+                            <div className="home-meeting-buttons-container">
                                 <button className="addMeetingButton" onClick={() => setShowUpdateMeeting(true)}>Update Meeting</button>
-                            )
-                        }
-                        {
-                            isLoggedIn && (
                                 <button className="addMeetingButton" onClick={() => setShowAddMeeting(true)}>Add Meeting</button>
-                            )
-                        }
-                    </div>
+                            </div>
+                        )
+                    }
                 </div>
                 <div className='home-upcoming-events-container'>
                     <h2 style={{
