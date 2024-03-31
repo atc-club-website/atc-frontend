@@ -7,8 +7,9 @@ import { useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabase_init";
 import Button from '@mui/material/Button';
 import "../css/home.css";
-import { TextField } from "@mui/material";
+import { IconButton, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 
 function HomePage() {
     const navigate = useNavigate();
@@ -24,6 +25,8 @@ function HomePage() {
     const [showPresidentMessage, setShowPresidentMessage] = useState(false);
     const [showAddMeeting, setShowAddMeeting] = useState(false);
     const [showUpdateMeeting, setShowUpdateMeeting] = useState(false);
+    const [showAddEvent, setShowAddEvent] = useState(false);
+    const [events, setEvents] = useState([]);
     async function checkLoginStatus() {
         const { data, error } = await supabase.auth.getSession()
         if (data.session != null) {
@@ -37,6 +40,33 @@ function HomePage() {
             .select('*')
             .order('date', { ascending: false })
             .limit(1);
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        return data;
+    }
+    async function getUpcomingEvents() {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const { data, error } = await supabase
+            .from('events')
+            .select('*')
+            .filter('date', 'gt', today.toISOString().split('T')[0])
+            .order('date', { ascending: true })
+            .limit(3);
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        return data;
+    }
+    async function addUpcomingEvent(title, desc, date) {
+        if (date < new Date().toISOString().split('T')[0]) {
+            throw new Error('Date cannot be in the past');
+        }
+        const { data, error } = await supabase.from('events').insert([{ title: title, desc: desc, date: date }]);
         if (error) {
             console.error(error);
             throw error;
@@ -115,6 +145,9 @@ function HomePage() {
             setIsLoggedIn(status);
         };
         checkStatus();
+        getUpcomingEvents().then(data => {
+            setEvents(data);
+        });
     }, []);
     return (
         <div>
@@ -478,17 +511,113 @@ function HomePage() {
                     }
                 </div>
                 <div className='home-upcoming-events-container'>
-                    <h2 style={{
-                        color: 'white'
-                    }}>Upcoming Events</h2>
-                    <ul>
-                        <li>Event 1</li>
-                        <li>Event 2</li>
-                        <li>Event 3</li>
-                        <li>Event 4</li>
-                        <li>Event 5</li>
-                        <li>Event 6</li>
-                    </ul>
+                    <tr>
+                        <th>
+                            <h2 style={{
+                                color: 'white'
+                            }}>Upcoming Events</h2>
+                        </th>
+                        {
+                            isLoggedIn && (
+                                <td align="right" valign="middle">
+                                    <IconButton onClick={
+                                        () => setShowAddEvent(true)
+                                    }>
+                                        <AddBoxTwoToneIcon style={{
+                                            color: 'white'
+                                        }} />
+                                    </IconButton>
+                                </td>
+                            )
+                        }
+                    </tr>
+                    {
+                        events.map(event => {
+                            let date = new Date(event.date);
+                            let day = date.getDate();
+                            let month = date.getMonth() + 1;
+                            let year = date.getFullYear();
+                            let formattedDate = `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`;
+                            return (
+                                <table className='home-event-container'>
+                                    <tr>
+                                        <th style={{
+                                            fontFamily: 'montserrat-sb',
+                                        }}>{event.title}</th>
+                                        <td align="right" style={{
+                                            fontFamily: 'montserrat-sb',
+                                        }}>{formattedDate}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colSpan={2} style={{
+                                            fontFamily: 'myriad-pro-r',
+                                        }}>{event.desc}</td>
+                                    </tr>
+                                </table>
+                            )
+                        })
+                    }
+                    {
+                        showAddEvent && (
+                            <div style={{
+                                position: 'fixed',
+                                top: '20%',
+                                left: '40%',
+                                width: '400px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                zIndex: 1000,
+                            }}>
+                                <div style={{
+                                    backgroundColor: 'white',
+                                    padding: '25px',
+                                    width: '80%',
+                                    overflow: 'auto',
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                    border: '3.5px solid #004165',
+                                }}>
+                                    <h2>Add Event</h2>
+                                    <input
+                                        className="form-control mt-1"
+                                        id='title'
+                                        style={{
+                                            marginBottom: '10px',
+                                        }}
+                                    />
+                                    <input
+                                        className="form-control mt-1"
+                                        id='desc'
+                                        label='Description'
+                                        variant='outlined'
+                                        style={{
+                                            marginBottom: '10px'
+                                        }}
+                                    />
+                                    <input
+                                        className="form-control mt-1"
+                                        id='date'
+                                        type='date'
+                                        variant='outlined'
+                                    />
+                                    <button onClick={() => setShowAddEvent(false)} className="add-no-btn" style={{
+                                        marginBottom: '10px'
+                                    }}>Cancel</button>
+                                    <button onClick={() => {
+                                        let title = document.getElementById('title').value;
+                                        let desc = document.getElementById('desc').value;
+                                        let date = document.getElementById('date').value;
+                                        addUpcomingEvent(title, desc, date).then(() => {
+                                            setShowAddEvent(false);
+                                        });
+                                    }} className="add-yes-btn">Add</button>
+                                </div>
+                            </div>
+                        )
+                    }
                 </div>
             </p>
             <Footer />
