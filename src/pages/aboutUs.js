@@ -124,7 +124,7 @@ function AboutUs(params) {
                             </tr>
                         ))}
                     </table>
-                    <a className="members-list-link" href="/members">Members List</a>
+                    <a className="members-list-link" target="_blank" href="/aboutUs/members">Members List</a>
                     <br />
                     <br />
                     <br />

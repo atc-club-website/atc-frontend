@@ -1,15 +1,15 @@
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import HomePage from './pages/home';
 import AboutUs from './pages/aboutUs';
-import Pathways from './pages/pathways';
-import ClubMeetingFormat from './pages/clubMeeting';
-import Resources from './pages/resources';
 import ClubAchievements from './pages/achievements';
-import Login from './pages/login';
-import MembersTable from './pages/members';
+import ClubMeetingFormat from './pages/clubMeeting';
 import Gallery from './pages/gallery';
 import Flyers from './pages/gallery/flyers';
+import HomePage from './pages/home';
+import Login from './pages/login';
+import MembersTable from './pages/members/members';
+import Pathways from './pages/pathways';
+import Resources from './pages/resources';
 
 function App() {
   return (
@@ -17,12 +17,12 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutUs" element={<AboutUs />} />
+        <Route path="/aboutUs/members" element={<MembersTable />} />
         <Route path="/pathways" element={<Pathways />} />
         <Route path="/clubMeetingFormat" element={<ClubMeetingFormat />} />
         <Route path="/resources" element={<Resources />} />
         <Route path="/clubAchievements" element={<ClubAchievements />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/members" element={<MembersTable />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/flyers" element={<Flyers />} />
       </Routes>
