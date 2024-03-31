@@ -10,6 +10,7 @@ import "../css/home.css";
 import { IconButton, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 function HomePage() {
     const navigate = useNavigate();
@@ -72,6 +73,16 @@ function HomePage() {
             throw error;
         }
         return data;
+    }
+    async function deleteUpcomingEvent(id) {
+        if (window.confirm('Are you sure you want to delete this event?')) {
+            const { data, error } = await supabase.from('events').delete().match({ id: id });
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+            return data;
+        }
     }
     async function uploadFlyer(file) {
         console.log(file.name);
@@ -524,7 +535,7 @@ function HomePage() {
                                         () => setShowAddEvent(true)
                                     }>
                                         <AddBoxTwoToneIcon style={{
-                                            color: 'white'
+                                            color: '#F2DF74'
                                         }} />
                                     </IconButton>
                                 </td>
@@ -547,6 +558,19 @@ function HomePage() {
                                         <td align="right" style={{
                                             fontFamily: 'montserrat-sb',
                                         }}>{formattedDate}</td>
+                                        {
+                                            isLoggedIn && (
+                                                <td rowSpan={2} align="right" style={{
+                                                    width: '10px',
+                                                }}>
+                                                    <IconButton onClick={() => deleteUpcomingEvent(event.id)}>
+                                                        <DeleteTwoToneIcon style={{
+                                                            color: '#F2DF74'
+                                                        }} />
+                                                    </IconButton>
+                                                </td>
+                                            )
+                                        }
                                     </tr>
                                     <tr>
                                         <td colSpan={2} style={{
@@ -581,9 +605,16 @@ function HomePage() {
                                     border: '3.5px solid #004165',
                                 }}>
                                     <h2>Add Event</h2>
+                                    <label htmlFor='date' style={{ fontFamily: 'myriad-pro-b', color: '#004165' }}>Date</label>
+                                    <TextField
+                                        id='date'
+                                        type='date'
+                                        variant='outlined'
+                                    />
                                     <input
                                         className="form-control mt-1"
                                         id='title'
+                                        placeholder="Enter Title"
                                         style={{
                                             marginBottom: '10px',
                                         }}
@@ -591,17 +622,11 @@ function HomePage() {
                                     <input
                                         className="form-control mt-1"
                                         id='desc'
-                                        label='Description'
+                                        placeholder='Enter Description'
                                         variant='outlined'
                                         style={{
                                             marginBottom: '10px'
                                         }}
-                                    />
-                                    <input
-                                        className="form-control mt-1"
-                                        id='date'
-                                        type='date'
-                                        variant='outlined'
                                     />
                                     <button onClick={() => setShowAddEvent(false)} className="add-no-btn" style={{
                                         marginBottom: '10px'
