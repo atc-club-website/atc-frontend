@@ -1,9 +1,12 @@
 import Navbar from "../widgets/navbar";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/navbar.css';
 import "../css/page.css";
-import { Container } from "@mui/material";
+import { Container, IconButton } from "@mui/material";
 import Footer from "../widgets/footer";
+import supabase from "../supabase/supabase_init";
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 
 var design_links = {
     "Toastmasters International Logo": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/tm_logo.png?t=2024-03-21T18%3A15%3A43.840Z",
@@ -30,21 +33,65 @@ var script_links = {
     "Sergeant at Arms Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/SAA-Script.pdf"
 }
 
-var newsletter_links = {
-    "The Rise - Aspirations": "https://www.flipsnack.com/AuroraToastmaster/the-rise-3a-2019-20.html",
-    "The Rise - Step Up": "https://issuu.com/pradnya.um/docs/the_rise_2-2019-20",
-    "The Rise - Celebrations": "https://issuu.com/pradnya.um/docs/the_rise_1-2019-20",
-    "The Rise - Miles & Smiles": "https://online.fliphtml5.com/wvmpo/kwpl/",
-    "The Rise - Enlightening Minds": "https://online.fliphtml5.com/tltps/lpao/?fbclid=IwAR1WyKFECqSVx5qs6h4Vqc9kYU-talq4HrO3zzpsb74nG_sQm8-cC7zgrrQ#p=1",
-    "The Rise - Spreading Wings": "https://online.fliphtml5.com/ugmlz/tzpa/",
-    "The Rise - Aim Ahead": "https://online.fliphtml5.com/ugmlz/qehd/?1601454799003https://online.fliphtml5.com/ugmlz/qehd/?1601454799003https://online.fliphtml5.com/ugmlz/qehd/?1601454799003",
-    "The Rise - Soar High": "https://online.fliphtml5.com/covbr/bdky/",
-    "The Rise - Get Set Go": "https://issuu.com/sahityareddy/docs/the_rise_upload?fbclid=IwAR0yDdiQINLpthfYbbL8QvkvCs6S9IQNpcq4-RDr9gcKTgzw9ihqnX9sN2g",
-    "The Rise - Game is On": "https://issuu.com/sahityareddy/docs/newsletter-game_is_on",
-    "The Rise - Dream Run": "https://issuu.com/sahityareddy/docs/dream_run-_final?fbclid=IwAR03ME1qWRx6d6DBXNhiX5bpOpMVq1oQ_TWONNZJ33jAMmI4ZZETSxO1PrE"
-}
 
 function Resources(params) {
+    const [newsletters, setNewsletters] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [addNewsletterDialog, setAddNewsletterDialog] = useState(false);
+
+    async function getNewsletters() {
+        const { data, error } = await supabase
+            .from('newsletters')
+            .select('*');
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function addNewsletter(title, url) {
+        const { data, error } = await supabase
+            .from('newsletters')
+            .insert([{ title: title, url: url }]);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function deleteNewsletter(id) {
+        const { data, error } = await supabase
+            .from('newsletters')
+            .delete()
+            .eq('id', id);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function checkLoginStatus() {
+        const { data, error } = await supabase.auth.getSession();
+        if (data.session != null) {
+            return true;
+        }
+        return false;
+    }
+
+    useEffect(() => {
+        const checkStatus = async () => {
+            const status = await checkLoginStatus();
+            setIsLoggedIn(status);
+        };
+        checkStatus();
+        getNewsletters().then(data => {
+            setNewsletters(data);
+        });
+    }, []);
+
     return (
         <div>
             <Navbar />
@@ -60,7 +107,7 @@ function Resources(params) {
                     <div style={{
                         width: '100%'
                     }}>
-                        <p className="subheader">Scripts</p>
+                        <span className="subheader">Scripts</span>
                         <div className="table links-table">
                             <table>
                                 <tr onClick={
@@ -132,115 +179,113 @@ function Resources(params) {
                     <div style={{
                         width: '100%'
                     }}>
-                        <p className="subheader">Newsletters</p>
+                        <tr>
+                            <td>
+                                <span className="subheader">Newsletters</span>
+                            </td>
+                            {
+                                isLoggedIn && (
+                                    <td valign="middle">
+                                        <IconButton onClick={
+                                            () => {
+                                                setAddNewsletterDialog(true);
+                                            }
+                                        }>
+                                            <AddBoxTwoToneIcon sx={{
+                                                color: '#CD202C'
+                                            }} />
+                                        </IconButton>
+                                    </td>
+                                )
+                            }
+                            {
+                                addNewsletterDialog && (
+                                    <div style={{
+                                        position: 'fixed',
+                                        top: '20%',
+                                        left: '40%',
+                                        width: '400px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        zIndex: 1000,
+                                    }}>
+                                        <div style={{
+                                            backgroundColor: 'white',
+                                            padding: '25px',
+                                            width: '80%',
+                                            overflow: 'auto',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                            border: '3.5px solid #004165',
+                                        }}>
+                                            <h2>Add Newsletter</h2>
+                                            <input
+                                                className="form-control mt-1"
+                                                id='title'
+                                                placeholder="Enter Title"
+                                                style={{
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+                                            <input
+                                                className="form-control mt-1"
+                                                id='url'
+                                                placeholder='Enter url'
+                                                style={{
+                                                    marginBottom: '10px'
+                                                }}
+                                            />
+                                            <button onClick={() => setAddNewsletterDialog(false)} className="add-no-btn" style={{
+                                                marginBottom: '10px'
+                                            }}>Cancel</button>
+                                            <button onClick={() => {
+                                                let title = document.getElementById('title').value;
+                                                let url = document.getElementById('url').value;
+                                                addNewsletter(title, url).then(() => {
+                                                    setAddNewsletterDialog(false);
+                                                });
+                                            }} className="add-yes-btn">Add</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </tr>
                         <div className="table links-table">
                             <table>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Aspirations"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Aspirations
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Step Up"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Step Up
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Celebrations"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Celebrations
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Miles & Smiles"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Miles & Smiles
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Enlightening Minds"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Enlightening Minds
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Spreading Wings"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Spreading Wings
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Aim Ahead"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Aim Ahead
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Soar High"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Soar High
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Get Set Go"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Get Set Go
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Game is On"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Game is On
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(newsletter_links["The Rise - Dream Run"]);
-                                    }
-                                }>
-                                    <td>
-                                        The Rise - Dream Run
-                                    </td>
-                                </tr>
+                                {
+                                    newsletters.map((row, index) => (
+                                        <tr key={index}>
+                                            <td onClick={() => window.open(row.url)}>
+                                                {row.title}
+                                            </td>
+                                            {
+                                                isLoggedIn && (
+                                                    <td style={{
+                                                        width: '10px'
+                                                    }}>
+                                                        <DeleteTwoToneIcon onClick={() => {
+                                                            deleteNewsletter(row.id).then(() => {
+                                                                getNewsletters().then(data => {
+                                                                    setNewsletters(data);
+                                                                });
+                                                            });
+                                                        }} />
+                                                    </td>
+                                                )
+                                            }
+                                        </tr>
+                                    ))
+                                }
                             </table>
                         </div>
                     </div>
                     <div style={{
                         width: '100%'
                     }}>
-                        <p className="subheader">Design Elements</p>
+                        <span className="subheader">Design Elements</span>
                         <div className="table links-table">
                             <table>
                                 <tr onClick={
@@ -294,7 +339,7 @@ function Resources(params) {
                     <div style={{
                         width: '100%'
                     }}>
-                        <p className="subheader">Videos</p>
+                        <span className="subheader">Videos</span>
                         <div className="table links-table">
                             <table>
                                 <tr onClick={
