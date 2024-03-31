@@ -41,7 +41,7 @@ function Gallery() {
                 </Card>
                 <Card onClick={
                     () => {
-                        navigate('/gallery/flyers');
+                        window.open('/gallery/flyers', '_blank');
                     }
                 } className='gallery-card' sx={{ maxWidth: 400, marginRight: '50px', height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white' }}>
                     <CardMedia
@@ -58,7 +58,11 @@ function Gallery() {
                         </Typography>
                     </CardContent>
                 </Card>
-                <Card className='gallery-card' sx={{ maxWidth: 400, height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white' }}>
+                <Card onClick={
+                    () => {
+                        window.open('/gallery/agendas', '_blank');
+                    }
+                } className='gallery-card' sx={{ maxWidth: 400, height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white' }}>
                     <CardMedia
                         component="img"
                         height="170"

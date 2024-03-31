@@ -2,11 +2,12 @@ import Navbar from "../widgets/navbar";
 import React, { useState, useEffect } from 'react';
 import '../css/navbar.css';
 import "../css/page.css";
-import { Container, IconButton } from "@mui/material";
+import { Container, IconButton, Button } from "@mui/material";
 import Footer from "../widgets/footer";
 import supabase from "../supabase/supabase_init";
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
+import CloudUploadTwoToneIcon from '@mui/icons-material/CloudUploadTwoTone';
 
 var design_links = {
     "Toastmasters International Logo": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/tm_logo.png?t=2024-03-21T18%3A15%3A43.840Z",
@@ -23,21 +24,13 @@ var video_links = {
     "Completing a Project": "https://www.youtube.com/watch?v=xZ-LGLSqZWk"
 }
 
-var script_links = {
-    "Toastmaster of the Day Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675G-toastmaster-script-and-checklist-letter-size.pdf",
-    "Table Topics Master Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675F-topicsmaster-script-and-log-letter-size.pdf",
-    "Timer Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675E-timer-script-and-log-letter-size.pdf",
-    "Grammarian Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675C-grammarian-script-and-log-letter-size.pdf",
-    "Ah-Counter Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675A-ah-counter-script-and-log-letter-size.pdf",
-    "General Evaluator Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/toastmasters-675B-general-evaluator-checklist-letter-size.pdf",
-    "Sergeant at Arms Script": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/scripts/SAA-Script.pdf"
-}
-
-
 function Resources(params) {
     const [newsletters, setNewsletters] = useState([]);
+    const [scripts, setScripts] = useState([]);
+    const [newScriptUrl, setNewScriptUrl] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [addNewsletterDialog, setAddNewsletterDialog] = useState(false);
+    const [addScriptDialog, setAddScriptDialog] = useState(false);
 
     async function getNewsletters() {
         const { data, error } = await supabase
@@ -73,6 +66,83 @@ function Resources(params) {
         return data;
     }
 
+    async function getScripts() {
+        const { data, error } = await supabase
+            .from('scripts')
+            .select('*');
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function uploadScript(file) {
+        const { data, error } = await supabase
+            .storage
+            .from('scripts')
+            .upload(file.name, file, {
+                cacheControl: '3600',
+                upsert: true,
+            });
+        if (error) {
+            console.error(error);
+            return;
+        }
+        const publicURLData = supabase.storage
+            .from('scripts')
+            .getPublicUrl(file.name);
+        setNewScriptUrl(publicURLData.data.publicUrl);
+    }
+
+    async function addScript(title, url) {
+        const { data, error } = await supabase
+            .from('scripts')
+            .insert([{ title: title, url: url }]);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function getScriptUrl(id) {
+        const { data, error } = await supabase
+            .from('scripts')
+            .select('url')
+            .eq('id', id);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data[0].url;
+    }
+
+    async function deleteScript(id) {
+        const confirm = window.confirm('Are you sure you want to delete this script?');
+        if (!confirm) {
+            return;
+        }
+        const url = await getScriptUrl(id);
+        const { data, error } = await supabase
+            .storage
+            .from('scripts')
+            .remove([url]);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        const { data1, error1 } = await supabase
+            .from('scripts')
+            .delete()
+            .eq('id', id);
+        if (error1) {
+            console.error(error);
+            return;
+        }
+        return [data, data1];
+    }
+
     async function checkLoginStatus() {
         const { data, error } = await supabase.auth.getSession();
         if (data.session != null) {
@@ -89,6 +159,9 @@ function Resources(params) {
         checkStatus();
         getNewsletters().then(data => {
             setNewsletters(data);
+        });
+        getScripts().then(data => {
+            setScripts(data);
         });
     }, []);
 
@@ -107,72 +180,123 @@ function Resources(params) {
                     <div style={{
                         width: '100%'
                     }}>
-                        <span className="subheader">Scripts</span>
+                        <tr>
+                            <td>
+                                <span className="subheader">Scripts</span>
+                            </td>
+                            {
+                                isLoggedIn && (
+                                    <td valign="middle">
+                                        <IconButton onClick={
+                                            () => {
+                                                setAddScriptDialog(true);
+                                            }
+                                        }>
+                                            <AddBoxTwoToneIcon sx={{
+                                                color: '#CD202C'
+                                            }} />
+                                        </IconButton>
+                                    </td>
+                                )
+                            }
+                            {
+                                addScriptDialog && (
+                                    <div style={{
+                                        position: 'fixed',
+                                        top: '20%',
+                                        left: '40%',
+                                        width: '400px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        zIndex: 1000,
+                                    }}>
+                                        <div style={{
+                                            backgroundColor: 'white',
+                                            padding: '25px',
+                                            width: '80%',
+                                            overflow: 'auto',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                            border: '3.5px solid #004165',
+                                        }}>
+                                            <h2>Add Script</h2>
+                                            <input
+                                                className="form-control mt-1"
+                                                id='title'
+                                                placeholder="Enter Title"
+                                                style={{
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+                                            <label htmlFor="script-button" style={{
+                                                marginBottom: '10px'
+                                            }}>
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    accept="pdf/*"
+                                                    id="script-button"
+                                                    type="file"
+                                                    onChange={(e) => uploadScript(e.target.files[0])}
+                                                />
+                                                <Button style={{
+                                                    border: 'none',
+                                                    backgroundColor: 'white',
+                                                    color: '#004165',
+                                                    fontFamily: 'myriad-pro-b'
+                                                }} variant="contained" component="span" startIcon={
+                                                    <CloudUploadTwoToneIcon style={{
+                                                        color: '#004165'
+                                                    }} />
+                                                }>
+                                                    Upload Script
+                                                </Button>
+                                            </label>
+                                            <button onClick={() => setAddScriptDialog(false)} className="add-no-btn" style={{
+                                                marginBottom: '10px'
+                                            }}>Cancel</button>
+                                            <button onClick={() => {
+                                                let title = document.getElementById('title').value;
+                                                let url = newScriptUrl;
+                                                addScript(title, url).then(() => {
+                                                    setAddScriptDialog(false);
+                                                });
+                                            }} className="add-yes-btn">Add</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </tr>
                         <div className="table links-table">
                             <table>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["Toastmaster of the Day Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        Toastmaster of the Day Script
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["Table Topics Master Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        Table Topics Master Script
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["Timer Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        Timer Script
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["Grammarian Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        Grammarian Script
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["Ah-Counter Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        Ah-Counter Script
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["General Evaluator Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        General Evaluator Script
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(script_links["Sergeant at Arms Script"]);
-                                    }
-                                }>
-                                    <td>
-                                        Sergeant at Arms Script
-                                    </td>
-                                </tr>
+                                {
+                                    scripts.map((row, index) => (
+                                        <tr key={index}>
+                                            <td onClick={() => window.open(row.url)}>
+                                                {row.title}
+                                            </td>
+                                            {
+                                                isLoggedIn && (
+                                                    <td style={{
+                                                        width: '10px'
+                                                    }}>
+                                                        <DeleteTwoToneIcon onClick={() => {
+                                                            deleteScript(row.id).then(() => {
+                                                                getScripts().then(data => {
+                                                                    setScripts(data);
+                                                                });
+                                                            });
+                                                        }} style={{
+                                                            cursor: 'pointer',
+                                                        }} />
+                                                    </td>
+                                                )
+                                            }
+                                        </tr>
+                                    ))
+                                }
                             </table>
                         </div>
                     </div>
@@ -272,6 +396,8 @@ function Resources(params) {
                                                                     setNewsletters(data);
                                                                 });
                                                             });
+                                                        }} style={{
+                                                            cursor: 'pointer',
                                                         }} />
                                                     </td>
                                                 )

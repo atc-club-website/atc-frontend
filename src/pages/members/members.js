@@ -158,7 +158,8 @@ function MembersTable(params) {
                                         isLoggedIn ? (
                                             <td>
                                                 <DeleteTwoToneIcon onClick={() => deleteMemberFromSupabase(member.id)} style={{
-                                                    color: '#CD202C'
+                                                    color: '#CD202C',
+                                                    cursor: 'pointer'
                                                 }} />
                                             </td>
                                         ) : null

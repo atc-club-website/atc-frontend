@@ -3,13 +3,14 @@ import './App.css';
 import AboutUs from './pages/aboutUs';
 import ClubAchievements from './pages/achievements';
 import ClubMeetingFormat from './pages/clubMeeting';
-import Gallery from './pages/gallery';
-import Flyers from './pages/gallery/flyers';
 import HomePage from './pages/home';
 import Login from './pages/login';
 import MembersTable from './pages/members/members';
 import Pathways from './pages/pathways';
 import Resources from './pages/resources';
+import Gallery from './pages/gallery';
+import Flyers from './pages/gallery/flyers';
+import Agendas from './pages/gallery/agendas';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/gallery/flyers" element={<Flyers />} />
+        <Route path="/gallery/agendas" element={<Agendas />} />
       </Routes>
     </Router>
   );
