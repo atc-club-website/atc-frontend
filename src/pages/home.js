@@ -8,7 +8,7 @@ import supabase from "../supabase/supabase_init";
 import Button from '@mui/material/Button';
 import "../css/home.css";
 import { IconButton, TextField } from "@mui/material";
-import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import CloudUploadIcon from '@mui/icons-material/CloudUploadTwoTone';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
@@ -235,7 +235,8 @@ function HomePage() {
                     <div className='home-about-us-container'>
                         <h2>About Us</h2>
                         <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<br />
+                            Welcome to Aurora Toastmasters Club, a vibrant community dedicated to nurturing communication and leadership skills in women. Our club, named after the Latin word for "dawn," symbolizes the promise of new beginnings and the radiant potential within each of our members.<br />
+                            Founded on October 15th, 2017, by the visionary leader Sunita Saini, Aurora Toastmasters Club was born from a profound belief in the power of women to transform themselves and their communities. Inspired by her vision, our club stands as a testament to the unwavering commitment to personal and professional development.<br />
                             <span className="read-more" onClick={() => navigate('/aboutUs')}>Read More</span>
                         </p>
                     </div>

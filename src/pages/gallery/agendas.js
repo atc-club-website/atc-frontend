@@ -4,7 +4,7 @@ import Navbar from '../../widgets/navbar';
 import Footer from '../../widgets/footer';
 import supabase from '../../supabase/supabase_init';
 
-function Flyers(params) {
+function Agendas(params) {
     const [data, setData] = useState([]);
     async function getData() {
         const { data, error } = await supabase.from('meetings').select('*');
@@ -20,14 +20,14 @@ function Flyers(params) {
 
     return (
         <Container>
-            <p className='header'>Flyers</p>
+            <p className='header'>Agendas</p>
             <div className='flyer-cards'>
             {
                     data.map((meeting, index) => {
                         return (
                             <Card
                                 onClick={() => {
-                                    window.open(meeting.flyerUrl);
+                                    window.open(meeting.agendaUrl);
                                 }}
                                 className='flyer-card'
                                 key={index}
@@ -44,7 +44,7 @@ function Flyers(params) {
                                 <CardMedia
                                     component="img"
                                     height="350"
-                                    image={meeting.flyerUrl}
+                                    image={meeting.agendaUrl}
                                 />
                                 <CardContent style={{
                                     textAlign: 'center',
@@ -62,4 +62,4 @@ function Flyers(params) {
     );
 }
 
-export default Flyers;
+export default Agendas;
