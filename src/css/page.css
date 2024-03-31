@@ -81,3 +81,11 @@
 .gallery-card {
     border: 3.5px solid var(--dark_blue);
 }
+
+.flyer-cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-left: 10px;
+    margin-bottom: 100px;
+}

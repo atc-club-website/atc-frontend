@@ -9,6 +9,7 @@ import ClubAchievements from './pages/achievements';
 import Login from './pages/login';
 import MembersTable from './pages/members';
 import Gallery from './pages/gallery';
+import Flyers from './pages/gallery/flyers';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/members" element={<MembersTable />} />
         <Route path="/gallery" element={<Gallery />} />
+        <Route path="/gallery/flyers" element={<Flyers />} />
       </Routes>
     </Router>
   );
