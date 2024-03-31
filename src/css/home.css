@@ -90,6 +90,12 @@
     padding: 10px;
 }
 
+.home-event-container {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid white;
+}
+
 .addMeetingButton {
     background-color: transparent;
     color: white;
