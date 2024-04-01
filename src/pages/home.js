@@ -39,7 +39,7 @@ function HomePage() {
         const { data, error } = await supabase
             .from('meetings')
             .select('*')
-            .order('date', { ascending: false })
+            .order('date', { ascending: true })
             .limit(1);
         if (error) {
             console.error(error);
@@ -236,7 +236,7 @@ function HomePage() {
                         <h2>About Us</h2>
                         <p>
                             Welcome to Aurora Toastmasters Club, a vibrant community dedicated to nurturing communication and leadership skills in women. Our club, named after the Latin word for "dawn," symbolizes the promise of new beginnings and the radiant potential within each of our members.<br />
-                            Founded on October 15th, 2017, by the visionary leader Sunita Saini, Aurora Toastmasters Club was born from a profound belief in the power of women to transform themselves and their communities. Inspired by her vision, our club stands as a testament to the unwavering commitment to personal and professional development.<br />
+                            Founded on October 15th, 2017, by the visionary leader Sunita Saini, DTM, Aurora Toastmasters Club was born from a profound belief in the power of women to transform themselves and their communities. Inspired by her vision, our club stands as a testament to the unwavering commitment to personal and professional development.<br />
                             <span className="read-more" onClick={() => navigate('/aboutUs')}>Read More</span>
                         </p>
                     </div>

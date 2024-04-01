@@ -5,12 +5,13 @@ import ClubAchievements from './pages/achievements';
 import ClubMeetingFormat from './pages/clubMeeting';
 import HomePage from './pages/home';
 import Login from './pages/login';
-import MembersTable from './pages/members/members';
+import MembersTable from './pages/aboutUsTables/members';
 import Pathways from './pages/pathways';
 import Resources from './pages/resources';
 import Gallery from './pages/gallery';
 import Flyers from './pages/gallery/flyers';
 import Agendas from './pages/gallery/agendas';
+import PastPresidentsTable from './pages/aboutUsTables/pastPresidents';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutUs" element={<AboutUs />} />
         <Route path="/aboutUs/members" element={<MembersTable />} />
+        <Route path="/aboutUs/pastPresidents" element={<PastPresidentsTable />} />
         <Route path="/pathways" element={<Pathways />} />
         <Route path="/clubMeetingFormat" element={<ClubMeetingFormat />} />
         <Route path="/resources" element={<Resources />} />
