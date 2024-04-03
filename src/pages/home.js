@@ -2,7 +2,7 @@ import Navbar from "../widgets/navbar";
 import Footer from "../widgets/footer";
 import { useEffect, useState } from "react";
 import groupPic from '../assets/group_pic.jpg';
-import presidentPic from '../assets/presidentPic.jpeg';
+import content from './aboutUsTables/aboutUsContent';
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabase_init";
 import Button from '@mui/material/Button';
@@ -21,6 +21,10 @@ function HomePage() {
     const [agendaUrl, setAgendaUrl] = useState('');
     const [newFlyerUrl, setNewFlyerUrl] = useState('');
     const [newAgendaUrl, setNewAgendaUrl] = useState('');
+    const [presidentMessage, setPresidentMessage] = useState('');
+    const [newPresidentMessage, setNewPresidentMessage] = useState('');
+    const [presidentImageUrl, setPresidentImageUrl] = useState('');
+    const [newPresidentImageUrl, setNewPresidentImageUrl] = useState('');
     const [showFlyerImage, setShowFlyerImage] = useState(false);
     const [showAgendaImage, setShowAgendaImage] = useState(false);
     const [showPresidentMessage, setShowPresidentMessage] = useState(false);
@@ -28,6 +32,7 @@ function HomePage() {
     const [showUpdateMeeting, setShowUpdateMeeting] = useState(false);
     const [showAddEvent, setShowAddEvent] = useState(false);
     const [events, setEvents] = useState([]);
+
     async function checkLoginStatus() {
         const { data, error } = await supabase.auth.getSession()
         if (data.session != null) {
@@ -138,6 +143,47 @@ function HomePage() {
         }
         return data;
     }
+    async function getPresidentMessageAndUrl() {
+        const { data, error } = await supabase
+            .from('president_message')
+            .select('*');
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        setPresidentMessage(data[0].content);
+        setNewPresidentMessage(data[0].content);
+        setPresidentImageUrl(data[0].pic_url);
+        setNewPresidentImageUrl(data[0].pic_url);
+    }
+    async function updatePresidentPic(file) {
+        const { data, error } = await supabase.storage
+            .from('president_photo')
+            .upload(file.name, file, {
+                cacheControl: '3600',
+                upsert: true,
+            });
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+
+        const publicURLData = supabase.storage
+            .from('president_photo')
+            .getPublicUrl(file.name);
+        setNewPresidentImageUrl(publicURLData.data.publicUrl);
+    }
+    async function updatePresidentMessageAndUrl(content) {
+        const { data, error } = await supabase
+            .from('president_message')
+            .update({ content: content, pic_url: newPresidentImageUrl })
+            .match({ id: 1 })
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        return data;
+    }
     useEffect(() => {
         getlatestMeeting().then(data => {
             if (data.length > 0) {
@@ -156,6 +202,7 @@ function HomePage() {
             setIsLoggedIn(status);
         };
         checkStatus();
+        getPresidentMessageAndUrl();
         getUpcomingEvents().then(data => {
             setEvents(data);
         });
@@ -174,21 +221,19 @@ function HomePage() {
                 <div className='home-pres-about-container'>
                     <div className='home-president-message-container'>
                         <h2>President's message</h2>
-                        <div style={
-                            {
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                            }
-                        }>
-                            <img src={presidentPic} style={{
+                        <div style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                            <img src={presidentImageUrl} style={{
                                 width: '100px',
                                 marginRight: '25px',
                             }} alt='person pic' />
-                            <p>
-                                Dear Esteemed Toastmasters !!<br />
-                                I hope this message finds you all in good health and high spirits. As we continue on our journey of personal and professional development through Toastmasters, it’s my honor to serve as the President of our Club.<br />
-                                It is with a deep sense of pride and excitement that I would like to share that Aurora TM’s club has achieved a remarkable milestone this year.<br />
+                            <p style={{ whiteSpace: "pre-line" }}>
+                                {
+                                    presidentMessage.length > 200 ? presidentMessage.substring(0, 200) + '...' : presidentMessage
+                                }
                                 <span className="read-more" onClick={() => setShowPresidentMessage(true)}>Read More</span>
                             </p>
                         </div>
@@ -207,36 +252,84 @@ function HomePage() {
                                 alignItems: 'center',
                                 zIndex: 1000,
                             }}>
-                                <div onClick={() => setShowPresidentMessage(false)} style={{
+                                <div style={{
                                     backgroundColor: 'white',
                                     padding: '25px',
                                     width: '80%',
                                     overflow: 'auto',
                                 }}>
                                     <h2>President's message</h2>
-                                    <img src={presidentPic} style={{
+                                    <img src={newPresidentImageUrl} style={{
                                         width: '100px',
-                                    }} alt='person pic' />
-                                    <p>
-                                        Dear Esteemed Toastmasters !!<br />
-                                        I hope this message finds you all in good health and high spirits. As we continue on our journey of personal and professional development through Toastmasters, it’s my honor to serve as the President of our Club.<br />
-                                        It is with a deep sense of pride and excitement that I would like to share that Aurora TM’s club has achieved a remarkable milestone this year. TM Sahitya Reddy has become the very first DTM from our club. Our talented and dedicated Toastmasters - Pradnya, Poornima and Chandra have taken up leadership roles as Area Directors. It’s a testament to their hard work, incredible capabilities, dedication and passion for Toastmasters. I’m immensely proud of their achievements, not just as the President but as a fellow member who has witnessed the incredible growth and transformation within our club. Together we will continue to reach new heights and inspire even more members to follow in their footsteps.<br />
-                                        I want to express my gratitude to our Dedicated EXCOM , mentors and every member who contributes to our club’s success. Your commitment is what makes our club Thrive.<br />
-                                        Kudos to our Dynamic VPPR; TM Suchitra and the editorial team comprising of TM Vijayalata, TM Rajashree and TM Muna for this latest edition of the Newsletter- “The Rise - Achievers“<br />
-                                        Thank you all for being a part of this amazing journey of achievement. I look forward to witnessing even more remarkable milestones and accomplishments form our members.<br />
-                                        Together, we can continue to create an environment that welcomes, encourages and inspires all those who enter. Let us strive for excellence in every meeting, let us challenge ourselves to step outside of our comfort zones and embrace the growth that comes from pushing our boundaries.<br />
-                                        Let’s continue to thrive, break new barriers and set new standards of excellence.<br />
-                                        Aurorians - let’s Rise, Achieve and Shine.
+                                        marginBottom: '10px',
+                                    }} alt='person pic' /><br />
+                                    {
+                                        isLoggedIn && (
+                                            <label htmlFor="president-pic">
+                                                <input
+                                                    style={{ display: 'none' }}
+                                                    accept="image/*"
+                                                    id="president-pic"
+                                                    type="file"
+                                                    onChange={(e) => updatePresidentPic(e.target.files[0])}
+                                                />
+                                                <Button style={{
+                                                    border: 'none',
+                                                    backgroundColor: 'white',
+                                                    color: '#004165',
+                                                    fontFamily: 'myriad-pro-b'
+                                                }} variant="contained" component="span" startIcon={
+                                                    <CloudUploadIcon style={{
+                                                        color: '#004165'
+                                                    }} />
+                                                }>
+                                                    Upload Picture
+                                                </Button>
+                                            </label>
+                                        )
+                                    }
+                                    <p style={{
+                                        whiteSpace: "pre-line"
+                                    }}>
+                                        {
+                                            isLoggedIn ? (
+                                                <textarea
+                                                    style={{
+                                                        width: '100%',
+                                                        height: '200px',
+                                                        marginBottom: '10px',
+                                                    }}
+                                                    value={newPresidentMessage}
+                                                    onChange={(e) => setNewPresidentMessage(e.target.value)}
+                                                />
+                                            ) : (
+                                                presidentMessage
+                                            )
+                                        }
                                     </p>
+                                    <button onClick={() => setShowPresidentMessage(false)} className="add-no-btn" style={{
+                                        marginBottom: '10px'
+                                    }}>Close</button>
+                                    {
+                                        isLoggedIn && (
+                                            <button onClick={() => {
+                                                updatePresidentMessageAndUrl(newPresidentMessage).then(() => {
+                                                    setShowPresidentMessage(false);
+                                                    setPresidentMessage(newPresidentMessage);
+                                                });
+                                            }} className="add-yes-btn">Update</button>
+                                        )
+                                    }
                                 </div>
                             </div>
                         )
                     }
                     <div className='home-about-us-container'>
                         <h2>About Us</h2>
-                        <p>
-                            Welcome to Aurora Toastmasters Club, a vibrant community dedicated to nurturing communication and leadership skills in women. Our club, named after the Latin word for "dawn," symbolizes the promise of new beginnings and the radiant potential within each of our members.<br />
-                            Founded on October 15th, 2017, by the visionary leader Sunita Saini, DTM, Aurora Toastmasters Club was born from a profound belief in the power of women to transform themselves and their communities. Inspired by her vision, our club stands as a testament to the unwavering commitment to personal and professional development.<br />
+                        <p style={{ whiteSpace: "pre-line" }}>
+                            {
+                                content.length > 200 ? content.substring(0, 200) + '...' : content
+                            }
                             <span className="read-more" onClick={() => navigate('/aboutUs')}>Read More</span>
                         </p>
                     </div>

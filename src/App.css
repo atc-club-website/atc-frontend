@@ -48,6 +48,12 @@ p {
   font-size: 17px;
 }
 
+textarea {
+  font-family: "myriad-pro-r";
+  line-height: 1.5;
+  font-size: 16px;
+}
+
 b {
   font-family: "montserrat-r";
 }
