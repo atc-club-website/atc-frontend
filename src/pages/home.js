@@ -44,7 +44,7 @@ function HomePage() {
         const { data, error } = await supabase
             .from('meetings')
             .select('*')
-            .order('date', { ascending: true })
+            .order('date', { ascending: false })
             .limit(1);
         if (error) {
             console.error(error);
