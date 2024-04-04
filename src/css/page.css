@@ -89,3 +89,21 @@
     margin-left: 10px;
     margin-bottom: 100px;
 }
+
+.primary-btn {
+    background-color: var(--dark_blue);
+    color: white;
+    border: 2px solid transparent;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    font-size: 1.1rem;
+    font-family: 'myriad-pro-b';
+}
+
+.primary-btn:hover {
+    background-color: transparent;
+    color: var(--dark_blue);
+    border: 2px solid var(--dark_blue);
+}
