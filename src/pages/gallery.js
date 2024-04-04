@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from '../widgets/navbar';
 import { Box, CardMedia, Container } from '@mui/material';
-import GroupPic from '../assets/homeSlideshow/group_pic.jpg';
+import GroupPic from '../assets/group_pic.jpg';
 import Footer from '../widgets/footer';
 import { useNavigate } from 'react-router-dom';
 

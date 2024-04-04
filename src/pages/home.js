@@ -2,7 +2,6 @@ import Navbar from "../widgets/navbar";
 import Footer from "../widgets/footer";
 import { useEffect, useState } from "react";
 import { Slide } from 'react-slideshow-image';
-import groupPic from '../assets/homeSlideshow/group_pic.jpg';
 import img1 from '../assets/homeSlideshow/img1.jpeg';
 import img2 from '../assets/homeSlideshow/img2.jpeg';
 import img3 from '../assets/homeSlideshow/img3.jpeg';
@@ -22,14 +21,11 @@ const divStyle = {
     alignItems: 'center',
     justifyContent: 'center',
     backgroundSize: 'cover',
-    height: '500px',
+    height: '400px',
     width: '100%',
 }
 
 const slideImages = [
-    {
-        url: groupPic
-    },
     {
         url: img1
     },
