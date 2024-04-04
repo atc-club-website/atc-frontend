@@ -1,16 +1,45 @@
 import Navbar from "../widgets/navbar";
 import Footer from "../widgets/footer";
 import { useEffect, useState } from "react";
-import groupPic from '../assets/group_pic.jpg';
+import { Slide } from 'react-slideshow-image';
+import groupPic from '../assets/homeSlideshow/group_pic.jpg';
+import img1 from '../assets/homeSlideshow/img1.jpeg';
+import img2 from '../assets/homeSlideshow/img2.jpeg';
+import img3 from '../assets/homeSlideshow/img3.jpeg';
 import content from './aboutUsTables/aboutUsContent';
 import { useNavigate } from "react-router-dom";
 import supabase from "../supabase/supabase_init";
 import Button from '@mui/material/Button';
 import "../css/home.css";
+import 'react-slideshow-image/dist/styles.css';
 import { IconButton, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUploadTwoTone';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+
+const divStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundSize: 'cover',
+    height: '400px',
+    width: '100%',
+}
+
+const slideImages = [
+    {
+        url: groupPic
+    },
+    {
+        url: img1
+    },
+    {
+        url: img2
+    },
+    {
+        url: img3
+    }
+];
 
 function HomePage() {
     const navigate = useNavigate();
@@ -216,7 +245,14 @@ function HomePage() {
             <br />
             <div className='home-top-half'>
                 <div className='home-pic-container'>
-                    <img src={groupPic} alt='group pic' />
+                    <Slide>
+                        {slideImages.map((slideImage, index) => (
+                            <div key={index}>
+                                <div style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
+                                </div>
+                            </div>
+                        ))}
+                    </Slide>
                 </div>
                 <div className='home-pres-about-container'>
                     <div className='home-president-message-container'>
