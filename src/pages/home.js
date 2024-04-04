@@ -288,9 +288,9 @@ function HomePage() {
                                     backgroundColor: 'white',
                                     padding: '25px',
                                     width: '80%',
+                                    maxHeight: '80%',
                                     overflow: 'auto',
                                 }}>
-                                    <h2>President's message</h2>
                                     <img src={newPresidentImageUrl} style={{
                                         width: '100px',
                                         marginBottom: '10px',
