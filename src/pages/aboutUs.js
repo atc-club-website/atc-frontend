@@ -122,10 +122,16 @@ function AboutUs(params) {
                             </tr>
                         ))}
                     </table>
-                    <p>
+                    <p style={{
+                        backgroundColor: 'var(--dark_blue)',
+                        padding: '7px 20px',
+                    }}>
                         <a className="members-list-link" target="_blank" href="/aboutUs/members">Members List</a>
                     </p>
-                    <p>
+                    <p style={{
+                        backgroundColor: 'var(--dark_blue)',
+                        padding: '7px 20px',
+                    }}>
                         <a className="members-list-link" target="_blank" href="/aboutUs/pastPresidents">Past Presidents</a>
                     </p>
                     <br />

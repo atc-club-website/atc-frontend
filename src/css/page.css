@@ -64,7 +64,7 @@
 }
 
 .members-list-link {
-    color: var(--dark_blue);
+    color: white;
     text-decoration: none;
     font-family: 'montserrat-sb';
 }
@@ -74,8 +74,6 @@
     flex-direction: row;
     justify-content: center;
     vertical-align: middle;
-    margin-top: 20vh;
-    height: 50vh;
 }
 
 .gallery-card {
@@ -124,4 +122,32 @@
     background-color: transparent;
     color: var(--red);
     border: 2px solid var(--red);
+}
+
+.achievements-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.resources-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+@media (max-width: 950px) {
+    .achievements-page {
+        flex-direction: column;
+    }
+    .resources-page {
+        flex-direction: column;
+    }
+    .gallery-cards {
+        flex-direction: column;
+        align-items: center;
+    }
+    .gallery-card {
+        margin-bottom: 20px;
+    }
 }
