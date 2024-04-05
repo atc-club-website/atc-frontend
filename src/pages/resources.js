@@ -173,10 +173,7 @@ function Resources(params) {
             <br />
             <Container>
                 <p className="header">Resources</p>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                }}>
+                <div className="resources-page">
                     <div style={{
                         width: '100%'
                     }}>

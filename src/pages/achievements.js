@@ -187,13 +187,9 @@ function ClubAchievements(params) {
                         </div>
                     )
                 }
-                <div style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: "space-evenly"
-                }}>
+                <div className="achievements-page">
                     <div>
-                        <p className="header">Club Achievement</p>
+                        <p className="header">Club Achievements</p>
                         <div className="table">
                             <table>
                                 {

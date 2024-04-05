@@ -160,3 +160,13 @@
         flex-direction: column;
     }
 }
+
+@media (max-width: 700px) {
+    .home-upcoming-meeting-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
+        margin-top: -50px;
+    }
+}
