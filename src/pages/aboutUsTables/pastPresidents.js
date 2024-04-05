@@ -162,7 +162,6 @@ function PastPresidentsTable(params) {
                                     ) : null
                                 }
                                 <th>Name</th>
-                                <th>Designation</th>
                                 <th>Tenure</th>
                             </tr>
                         </thead>
@@ -179,11 +178,21 @@ function PastPresidentsTable(params) {
                                             </td>
                                         ) : null
                                     }
-                                    <td>{member.name}</td>
-                                    <td>{member.desg}</td>
+                                    <td>{
+                                        member.desg === 'DTM' ? member.name + ', DTM' : member.name
+                                    }</td>
                                     <td>{member.start_year} - {member.end_year}</td>
                                 </tr>
                             ))}
+                            <tr>
+                                <td />
+                                <td>
+                                    Sunita Saini, DTM
+                                </td>
+                                <td>
+                                    Founder
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

@@ -26,8 +26,12 @@ function Pathways(params) {
             <br />
             <br />
             <br />
+            <br />
+            <br />
             <Container>
-                <p className="header">Pathways</p>
+                <img src="https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/path_logo.png?t=2024-03-21T18%3A16%3A24.105Z" style={{
+                    width: "250px",
+                }}></img>
                 <p className="content">
                     Toastmasters’ education system is called Pathways. It is a modern, flexible and interactive way to develop your skills and help you reach your goals. It is designed to help you build the competencies you need to communicate and lead. It is comprised of 11 paths that teach more than 300 unique competencies.
                     A path is a series of 14 projects across five levels that you follow at your own pace. Examples of projects are learning to ‘negotiate the best outcome’, ‘understanding your leadership style’ and ‘delivering social speeches’. Each project contains at least one speech. Your path functions as a roadmap in your personal communication and leadership journey and provides you with useful information, instructions and learning tools to help you prepare each project and speech.

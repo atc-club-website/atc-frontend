@@ -10,9 +10,9 @@ import content from './aboutUsTables/aboutUsContent'
 
 const positions = {
     "pres": "President",
-    "vpe": "Vice President of Education",
-    "vpm": "Vice President of Membership",
-    "vppr": "Vice President of Public Relations",
+    "vpe": "Vice President - Education",
+    "vpm": "Vice President - Membership",
+    "vppr": "Vice President - Public Relations",
     "sec": "Secretary",
     "tres": "Treasurer",
     "saa": "Sergeant at Arms",
@@ -21,7 +21,6 @@ const positions = {
 
 function AboutUs(params) {
     const [excom, setExcom] = useState([]);
-    const [name, setName] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const checkLoginStatus = async () => {
