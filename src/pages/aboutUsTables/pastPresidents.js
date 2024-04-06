@@ -185,7 +185,11 @@ function PastPresidentsTable(params) {
                                 </tr>
                             ))}
                             <tr>
-                                <td />
+                                {
+                                    isLoggedIn ? (
+                                        <td />
+                                    ) : null
+                                }
                                 <td>
                                     Sunita Saini, DTM
                                 </td>
