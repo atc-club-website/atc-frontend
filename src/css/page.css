@@ -76,8 +76,16 @@
     vertical-align: middle;
 }
 
+@media (min-width: 951px) {
+    .gallery-cards {
+        margin-bottom: 50vh;
+        margin-top: 20vh;
+    }
+}
+
 .gallery-card {
     border: 3.5px solid var(--dark_blue);
+    padding: 20px;
 }
 
 .flyer-cards {
@@ -136,6 +144,22 @@
     justify-content: space-evenly;
 }
 
+.developer {
+    font-family: "montserrat-r";
+    font-size: 0.8rem;
+    margin-bottom: 20px;
+    padding: 0;
+    text-align: start;
+    color: var(--red);
+}
+
+.footer-wrapper {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid white;
+}
+
 @media (max-width: 950px) {
     .achievements-page {
         flex-direction: column;
@@ -149,5 +173,9 @@
     }
     .gallery-card {
         margin-bottom: 20px;
+        margin-right: 0px;
+    }
+    .footer-wrapper {
+        position: relative;
     }
 }

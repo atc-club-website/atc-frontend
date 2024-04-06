@@ -1,14 +1,13 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Navbar from '../widgets/navbar';
-import { Box, CardMedia, Container } from '@mui/material';
-import GroupPic from '../assets/group_pic.jpg';
 import Footer from '../widgets/footer';
 import { useNavigate } from 'react-router-dom';
+import CollectionsTwoToneIcon from '@mui/icons-material/CollectionsTwoTone';
+import PhotoAlbumTwoToneIcon from '@mui/icons-material/PhotoAlbumTwoTone';
+import DescriptionTwoToneIcon from '@mui/icons-material/DescriptionTwoTone';
 
 function Gallery() {
     const navigate = useNavigate();
@@ -24,12 +23,12 @@ function Gallery() {
                     () => {
                         window.open('https://drive.google.com/drive/folders/1jUY8w39Cw5lsgX-PwEV2rwE5XXjdQVyz?usp=sharing');
                     }
-                } className='gallery-card' sx={{ maxWidth: 400, marginRight: '50px', height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white', cursor: 'pointer' }}>
-                    <CardMedia
-                        component="img"
-                        height="170"
-                        image={GroupPic}
-                    />
+                } className='gallery-card' sx={{ maxWidth: 400, marginRight: '50px', height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'var(--yellow)', cursor: 'pointer' }}>
+                    <CollectionsTwoToneIcon style={{
+                        color: 'var(--yellow)',
+                        width: '100%',
+                        height: '200px',
+                    }} />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div" sx={{
                             fontFamily: 'montserrat-r',
@@ -43,12 +42,12 @@ function Gallery() {
                     () => {
                         window.open('/gallery/flyers', '_blank');
                     }
-                } className='gallery-card' sx={{ maxWidth: 400, marginRight: '50px', height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white' }}>
-                    <CardMedia
-                        component="img"
-                        height="170"
-                        image={GroupPic}
-                    />
+                } className='gallery-card' sx={{ maxWidth: 400, marginRight: '50px', height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white', cursor: 'pointer' }}>
+                    <PhotoAlbumTwoToneIcon style={{
+                        color: 'var(--white)',
+                        width: '100%',
+                        height: '200px',
+                    }} />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div" sx={{
                             fontFamily: 'montserrat-r',
@@ -62,12 +61,12 @@ function Gallery() {
                     () => {
                         window.open('/gallery/agendas', '_blank');
                     }
-                } className='gallery-card' sx={{ maxWidth: 400, height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'white' }}>
-                    <CardMedia
-                        component="img"
-                        height="170"
-                        image={GroupPic}
-                    />
+                } className='gallery-card' sx={{ maxWidth: 400, height: 'min-content', borderRadius: '0px', boxShadow: '0px 0px 0px 0px', backgroundColor: '#004168', color: 'var(--yellow)', cursor: 'pointer' }}>
+                    <DescriptionTwoToneIcon style={{
+                        color: 'var(--yellow)',
+                        width: '100%',
+                        height: '200px',
+                    }} />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div" sx={{
                             fontFamily: 'montserrat-r',

@@ -16,6 +16,7 @@ import { IconButton, TextField } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUploadTwoTone';
 import AddBoxTwoToneIcon from '@mui/icons-material/AddBoxTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+import moment from 'moment';
 
 const divStyle = {
     display: 'flex',
@@ -46,6 +47,8 @@ function HomePage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [meetingDate, setMeetingDate] = useState('');
     const [newMeetingDate, setNewMeetingDate] = useState('');
+    const [meetingNumber, setMeetingNumber] = useState(0);
+    const [newMeetingNumber, setNewMeetingNumber] = useState(0);
     const [flyerUrl, setFlyerUrl] = useState('');
     const [agendaUrl, setAgendaUrl] = useState('');
     const [newFlyerUrl, setNewFlyerUrl] = useState('');
@@ -153,8 +156,8 @@ function HomePage() {
             .getPublicUrl(file.name);
         setNewAgendaUrl(publicURLData.data.publicUrl);
     }
-    async function addMeeting(date, flyerUrl, agendaUrl) {
-        const { data, error } = await supabase.from('meetings').insert([{ date: date, flyerUrl: flyerUrl, agendaUrl: agendaUrl }]);
+    async function addMeeting(date, flyerUrl, agendaUrl, meetingNumber) {
+        const { data, error } = await supabase.from('meetings').insert([{ date: date, flyerUrl: flyerUrl, agendaUrl: agendaUrl, meetingNum: meetingNumber }]);
         if (error) {
             console.error(error);
             throw error;
@@ -222,6 +225,8 @@ function HomePage() {
                 let year = date.getFullYear();
                 let formattedDate = `${day < 10 ? '0' + day : day}-${month < 10 ? '0' + month : month}-${year}`;
                 setMeetingDate(formattedDate);
+                setMeetingNumber(data[0].meetingNum);
+                setNewMeetingNumber(data[0].meetingNum + 1);
                 setFlyerUrl(data[0].flyerUrl);
                 setAgendaUrl(data[0].agendaUrl);
             }
@@ -389,6 +394,10 @@ function HomePage() {
                             <h3 style={{
                                 color: 'white',
                                 textAlign: 'center'
+                            }}>Meeting # {meetingNumber}</h3>
+                            <h3 style={{
+                                color: 'white',
+                                textAlign: 'center'
                             }}>{meetingDate}</h3>
                             {
                                 showAddMeeting && (
@@ -420,6 +429,13 @@ function HomePage() {
                                                 id='date'
                                                 value={newMeetingDate}
                                                 onChange={(e) => setNewMeetingDate(e.target.value)}
+                                            />
+                                            <br />
+                                            <TextField
+                                                id='meetingNumber'
+                                                label='Meeting Number'
+                                                value={newMeetingNumber}
+                                                onChange={(e) => setNewMeetingNumber(e.target.value)}
                                             />
                                             <br />
                                             <label htmlFor="flyer-button" style={{
@@ -472,14 +488,7 @@ function HomePage() {
                                             }}>Cancel</button>
                                             <button onClick={() => {
                                                 console.log("Adding meeting")
-                                                function convertDate(inputFormat) {
-                                                    function pad(s) { return (s < 10) ? '0' + s : s; }
-                                                    var parts = inputFormat.split('-');
-                                                    var d = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
-                                                    return [d.getFullYear(), pad(d.getMonth() + 1), pad(d.getDate())].join('-');
-                                                }
-                                                let convertedDate = convertDate(newMeetingDate);
-                                                addMeeting(convertedDate, newFlyerUrl, newAgendaUrl).then(() => {
+                                                addMeeting(new Date(newMeetingDate), newFlyerUrl, newAgendaUrl, newMeetingNumber).then(() => {
                                                     setShowAddMeeting(false);
                                                     setNewMeetingDate('');
                                                     setNewFlyerUrl('');
@@ -513,7 +522,7 @@ function HomePage() {
                                             boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
                                             border: '3.5px solid #004165',
                                         }}>
-                                            <h2>Update Upcoming Meeting</h2>
+                                            <h2>Update Meeting # {meetingNumber}</h2>
                                             <label htmlFor='date' style={{ fontFamily: 'myriad-pro-b', color: '#004165' }}>Date: {meetingDate}</label>
                                             <br />
                                             <label htmlFor="flyer-button" style={{
@@ -775,6 +784,13 @@ function HomePage() {
                     }
                 </div>
             </div>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <Footer />
         </div>
     )

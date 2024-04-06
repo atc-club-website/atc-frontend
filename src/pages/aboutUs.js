@@ -22,6 +22,7 @@ const positions = {
 function AboutUs(params) {
     const [excom, setExcom] = useState([]);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [showDeveloperModal, setShowDeveloperModal] = useState(false);
 
     const checkLoginStatus = async () => {
         const { data, error } = await supabase.auth.getSession()
@@ -68,8 +69,42 @@ function AboutUs(params) {
             <br />
             <br />
             <Container>
+                {
+                    showDeveloperModal && (
+                        <div style={{
+                            position: 'fixed',
+                            top: '20%',
+                            left: '40%',
+                            width: '400px',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            zIndex: 1000,
+                        }}>
+                            <div style={{
+                                backgroundColor: 'white',
+                                padding: '25px',
+                                width: '80%',
+                                overflow: 'auto',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                border: '3.5px solid #004165',
+                            }}>
+                                <h2>Emails</h2>
+                                <li style={{ color: 'black' }}>aadi.p.um@gmail.com</li>
+                                <li style={{ color: 'black' }}>aadi.fall22@gmail.com</li>
+                                <h2>Phone Numbers</h2>
+                                <li style={{ color: 'black' }}>+1 437 665 1790</li>
+                                <li style={{ color: 'black' }}>+974 5563 2157</li>
+                                <br />
+                                <button onClick={() => setShowDeveloperModal(false)} className="add-no-btn" >Close</button>
+                            </div>
+                        </div>
+                    )
+                }
                 <p className="header">About Us</p>
-                <p className="content" style={{whiteSpace: "pre-line"}}>
+                <p className="content" style={{ whiteSpace: "pre-line" }}>
                     {
                         content
                     }
@@ -135,8 +170,25 @@ function AboutUs(params) {
                         <a className="members-list-link" target="_blank" href="/aboutUs/pastPresidents">Past Presidents</a>
                     </p>
                     <br />
+                    <div className="developer" style={{
+                        textDecoration: 'underline',
+                        cursor: 'pointer',
+                    }} onClick={
+                        () => {
+                            setShowDeveloperModal(true)
+                        }
+                    }>
+                        Developed by Aadi Umrani
+                    </div>
                 </div>
             </Container>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <Footer />
         </div>
     )

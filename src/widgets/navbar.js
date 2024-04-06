@@ -66,6 +66,7 @@ const Navbar = () => {
           </div>
 
           <div className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
+            <a href='/'>Home</a>
             <a href='/aboutUs'>About Us</a>
             <a href='/clubMeetingFormat'>Club Meeting</a>
             <a href='/pathways'>Pathways</a>

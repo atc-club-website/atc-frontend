@@ -27,7 +27,7 @@
 .navbar-logo a {
     color: white;
     text-decoration: none;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: bold;
     font-family: "montserrat-sb";
 }
@@ -61,7 +61,6 @@
     color: white;
     padding: 5px 0;
     text-align: center;
-    position: relative;
     bottom: 0;
     width: 100%;
     border-top: 2px solid var(--dark_blue);
@@ -96,16 +95,6 @@
     padding: 0;
     text-align: center;
     width: 100%;
-}
-
-.developer {
-    font-family: "montserrat-r";
-    font-size: 0.8rem;
-    margin: 0;
-    margin-top: 30px;
-    padding: 0;
-    text-align: start;
-    color: var(--yellow);
 }
 
 .logout-modal {
@@ -156,7 +145,7 @@
 
 @media (max-width: 950px) {
     .navbar-logo a {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
     .navbar-links {
         display: none;
@@ -175,6 +164,9 @@
     }
     .navbar-toggle {
         display: block;
+    }
+    .footer-wrapper {
+        position: relative;
     }
 }
   

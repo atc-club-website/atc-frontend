@@ -109,6 +109,13 @@ function ClubMeetingFormat(params) {
                     </table>
                 </div>
             </Container>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
             <Footer />
         </div>
     )
