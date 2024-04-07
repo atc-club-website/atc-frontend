@@ -17,20 +17,15 @@ var design_links = {
     "Pathways Badges": "https://kxwuplxrsjipwfludoao.supabase.co/storage/v1/object/public/design_elements/pathways-badges-png.zip?t=2024-03-21T18%3A16%3A33.425Z"
 }
 
-var video_links = {
-    "Selecting a Path": "https://www.youtube.com/watch?v=KHgPjGgNtc8",
-    "Navigating a Path": "https://www.youtube.com/watch?v=5jg32sw8pZM",
-    "Submitting a Level": "https://www.youtube.com/watch?v=yrevskWIKE8",
-    "Completing a Project": "https://www.youtube.com/watch?v=xZ-LGLSqZWk"
-}
-
 function Resources(params) {
     const [newsletters, setNewsletters] = useState([]);
     const [scripts, setScripts] = useState([]);
+    const [videoLinks, setVideoLinks] = useState([])
     const [newScriptUrl, setNewScriptUrl] = useState('');
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [addNewsletterDialog, setAddNewsletterDialog] = useState(false);
     const [addScriptDialog, setAddScriptDialog] = useState(false);
+    const [addVideoDialog, setAddVideoDialog] = useState(false);
 
     async function getNewsletters() {
         const { data, error } = await supabase
@@ -143,6 +138,40 @@ function Resources(params) {
         return [data, data1];
     }
 
+    async function getVideoLinks() {
+        const { data, error } = await supabase
+            .from('videos')
+            .select('*');
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function addVideo(title, url) {
+        const { data, error } = await supabase
+            .from('videos')
+            .insert([{ title: title, url: url }]);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
+    async function deleteVideo(id) {
+        const { data, error } = await supabase
+            .from('videos')
+            .delete()
+            .eq('id', id);
+        if (error) {
+            console.error(error);
+            return;
+        }
+        return data;
+    }
+
     async function checkLoginStatus() {
         const { data, error } = await supabase.auth.getSession();
         if (data.session != null) {
@@ -162,6 +191,9 @@ function Resources(params) {
         });
         getScripts().then(data => {
             setScripts(data);
+        });
+        getVideoLinks().then(data => {
+            setVideoLinks(data);
         });
     }, []);
 
@@ -462,45 +494,108 @@ function Resources(params) {
                     <div style={{
                         width: '100%'
                     }}>
-                        <span className="subheader">Videos</span>
+                        <tr>
+                            <td>
+                                <span className="subheader">Video Links</span>
+                            </td>
+                            {
+                                isLoggedIn && (
+                                    <td valign="middle">
+                                        <IconButton onClick={
+                                            () => {
+                                                setAddVideoDialog(true);
+                                            }
+                                        }>
+                                            <AddBoxTwoToneIcon sx={{
+                                                color: '#CD202C'
+                                            }} />
+                                        </IconButton>
+                                    </td>
+                                )
+                            }
+                            {
+                                addVideoDialog && (
+                                    <div style={{
+                                        position: 'fixed',
+                                        top: '20%',
+                                        left: '40%',
+                                        width: '400px',
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                        zIndex: 1000,
+                                    }}>
+                                        <div style={{
+                                            backgroundColor: 'white',
+                                            padding: '25px',
+                                            width: '80%',
+                                            overflow: 'auto',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.1)',
+                                            border: '3.5px solid #004165',
+                                        }}>
+                                            <h2>Add Video</h2>
+                                            <input
+                                                className="form-control mt-1"
+                                                id='title'
+                                                placeholder="Enter Title"
+                                                style={{
+                                                    marginBottom: '10px',
+                                                }}
+                                            />
+                                            <input
+                                                className="form-control mt-1"
+                                                id='url'
+                                                placeholder='Enter url'
+                                                style={{
+                                                    marginBottom: '10px'
+                                                }}
+                                            />
+                                            <button onClick={() => setAddVideoDialog(false)} className="add-no-btn" style={{
+                                                marginBottom: '10px'
+                                            }}>Cancel</button>
+                                            <button onClick={() => {
+                                                let title = document.getElementById('title').value;
+                                                let url = document.getElementById('url').value;
+                                                addVideo(title, url).then(() => {
+                                                    setAddVideoDialog(false);
+                                                });
+                                            }} className="add-yes-btn">Add</button>
+                                        </div>
+                                    </div>
+                                )
+                            }
+                        </tr>
                         <div className="table links-table">
                             <table>
-                                <tr onClick={
-                                    () => {
-                                        window.open(video_links["Selecting a Path"]);
-                                    }
-                                }>
-                                    <td>
-                                        Selecting a Path
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(video_links["Navigating a Path"]);
-                                    }
-                                }>
-                                    <td>
-                                        Navigating a Path
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(video_links["Submitting a Level"]);
-                                    }
-                                }>
-                                    <td>
-                                        Submitting a Level
-                                    </td>
-                                </tr>
-                                <tr onClick={
-                                    () => {
-                                        window.open(video_links["Completing a Project"]);
-                                    }
-                                }>
-                                    <td>
-                                        Completing a Project
-                                    </td>
-                                </tr>
+                                {
+                                    videoLinks.map((row, index) => (
+                                        <tr key={index}>
+                                            <td onClick={() => window.open(row.url)}>
+                                                {row.title}
+                                            </td>
+                                            {
+                                                isLoggedIn && (
+                                                    <td style={{
+                                                        width: '10px'
+                                                    }}>
+                                                        <DeleteTwoToneIcon onClick={() => {
+                                                            deleteVideo(row.id).then(() => {
+                                                                getVideoLinks().then(data => {
+                                                                    setVideoLinks(data);
+                                                                });
+                                                            });
+                                                        }} style={{
+                                                            cursor: 'pointer',
+                                                        }} />
+                                                    </td>
+                                                )
+                                            }
+                                        </tr>
+                                    ))
+                                }
                             </table>
                         </div>
                     </div>

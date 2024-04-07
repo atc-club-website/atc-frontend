@@ -92,6 +92,25 @@
     border: 2px solid white;
 }
 
+.deleteMeetingButton {
+    background-color: white;
+    color: var(--red);
+    border: 2px solid var(--red);
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    width: 100%;
+    margin-top: 20px;
+    font-size: 1.1rem;
+    font-family: 'myriad-pro-b';
+}
+
+.deleteMeetingButton:hover {
+    background-color: var(--red);
+    color: white;
+    border: 2px solid transparent;
+}
+
 .addMeetingButton {
     background-color: transparent;
     color: white;
