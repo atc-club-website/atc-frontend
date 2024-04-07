@@ -12,7 +12,7 @@
     position: fixed;
     backdrop-filter: blur(15px);
     font-family: "montserrat-r";
-    z-index: 10;
+    z-index: 1000;
 }
 
 .navbar-container {
@@ -66,6 +66,7 @@
     border-top: 2px solid var(--dark_blue);
     display: flex;
     flex-direction: row;
+    z-index: 1000;
 }
 
 .meeting-info-footer {

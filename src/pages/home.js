@@ -175,6 +175,16 @@ function HomePage() {
         }
         return data;
     }
+    async function deleteUpcomingMeeting(meetingNum) {
+        if (window.confirm('Are you sure you want to delete this meeting?')) {
+            const { data, error } = await supabase.from('meetings').delete().match({ meetingNum: meetingNum });
+            if (error) {
+                console.error(error);
+                throw error;
+            }
+            return data;
+        }
+    }
     async function getPresidentMessageAndUrl() {
         const { data, error } = await supabase
             .from('president_message')
@@ -656,6 +666,7 @@ function HomePage() {
                             <div className="home-meeting-buttons-container">
                                 <button className="addMeetingButton" onClick={() => setShowUpdateMeeting(true)}>Update Meeting</button>
                                 <button className="addMeetingButton" onClick={() => setShowAddMeeting(true)}>Add Meeting</button>
+                                <button className="deleteMeetingButton" onClick={() => deleteUpcomingMeeting(meetingNumber)}>Delete Meeting</button>
                             </div>
                         )
                     }
