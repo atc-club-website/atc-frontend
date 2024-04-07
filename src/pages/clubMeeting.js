@@ -44,10 +44,10 @@ function ClubMeetingFormat(params) {
                         </tr>
                         <tr>
                             <td>
-                                Toastmaster
+                                Toastmaster of the Day
                             </td>
                             <td>
-                                The Toastmaster is the meeting's director and host. The Toastmaster is responsible for ensuring that the meeting runs smoothly and on time. The Toastmaster also introduces the participants and the speakers.
+                                The Toastmaster of the Day (TMOD) is the meeting's director and host. The TMOD is responsible for ensuring that the meeting runs smoothly and on time. The TMOD also introduces the participants and the speakers.
                             </td>
                         </tr>
                         <tr>
