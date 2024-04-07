@@ -93,7 +93,7 @@ function HomePage() {
             .select('*')
             .filter('date', 'gt', today.toISOString().split('T')[0])
             .order('date', { ascending: true })
-            .limit(3);
+            .limit(4);
         if (error) {
             console.error(error);
             throw error;
@@ -691,7 +691,7 @@ function HomePage() {
                             return (
                                 <table className='home-event-container'>
                                     <tr>
-                                        <th style={{
+                                        <th align="left" style={{
                                             fontFamily: 'montserrat-sb',
                                         }}>{event.title}</th>
                                         <td align="right" style={{
