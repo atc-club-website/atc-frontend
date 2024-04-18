@@ -1,11 +1,51 @@
 import Navbar from "../widgets/navbar";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../css/navbar.css';
 import "../css/page.css";
 import { Container } from "@mui/material";
 import Footer from "../widgets/footer";
+import supabase from "../supabase/supabase_init";
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 
 function ClubMeetingFormat(params) {
+    const [meetingRoles, setMeetingRoles] = useState([]);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const checkLoginStatus = async () => {
+        const { data, error } = await supabase.auth.getSession()
+        console.log(data.session != null);
+        if (data.session != null) {
+            return true;
+        }
+        return false;
+    }
+
+    const getMeetingRoles = async () => {
+        const { data, error } = await supabase.from('meeting_roles').select('*');
+        if (error) {
+            console.log(error);
+            return [];
+        }
+        return data;
+    }
+
+    const updateMeetingRole = async (role, desc, id) => {
+        const { data, error } = await supabase.from('meeting_roles').update({ role: role, desc: desc }).eq('id', id);
+        if (error) {
+            console.error(error);
+            throw error;
+        }
+        const updatedData = await getMeetingRoles();
+        setMeetingRoles(updatedData);
+        alert('Meeting role updated successfully');
+        return data;
+    }
+
+    useEffect(() => {
+        checkLoginStatus().then(status => setIsLoggedIn(status));
+        getMeetingRoles().then(data => setMeetingRoles(data));
+    }, []);
+
     return (
         <div>
             <Navbar />
@@ -35,6 +75,11 @@ function ClubMeetingFormat(params) {
                 <div className="table">
                     <table>
                         <tr>
+                            {
+                                isLoggedIn && (
+                                    <th />
+                                )
+                            }
                             <th>
                                 Role
                             </th>
@@ -42,70 +87,53 @@ function ClubMeetingFormat(params) {
                                 Description
                             </th>
                         </tr>
-                        <tr>
-                            <td>
-                                Toastmaster of the Day
-                            </td>
-                            <td>
-                                The Toastmaster of the Day (TMOD) is the meeting's director and host. The TMOD is responsible for ensuring that the meeting runs smoothly and on time. The TMOD also introduces the participants and the speakers.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Table Topics Master
-                            </td>
-                            <td>
-                                The Table Topics Master prepares topics for the Table Topics session. The Table Topics Master also conducts the Table Topics session.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                General Evaluator
-                            </td>
-                            <td>
-                                The General Evaluator evaluates everything that takes place during the meeting. The General Evaluator also evaluates the evaluators.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Timer
-                            </td>
-                            <td>
-                                The Timer is responsible for monitoring the time for each segment of the meeting.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Grammarian
-                            </td>
-                            <td>
-                                The Grammarian is responsible for monitoring the use of language during the meeting. The Grammarian also introduces the word of the day.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Ah-Counter
-                            </td>
-                            <td>
-                                The Ah-Counter is responsible for monitoring the use of filler words such as "ah", "um", "so", etc. during the meeting.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Evaluators
-                            </td>
-                            <td>
-                                The Evaluators are responsible for evaluating the prepared speeches and the meeting as a whole.
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Sergeant at Arms
-                            </td>
-                            <td>
-                                The Sergeant at Arms is responsible for setting up the meeting venue and ensuring that the meeting runs smoothly.
-                            </td>
-                        </tr>
+                        {meetingRoles.map(role => (
+                            <tr>
+                                {
+                                    isLoggedIn && (
+                                        <td>
+                                            <EditTwoToneIcon style={{
+                                                color: 'var(--red)',
+                                                cursor: 'pointer',
+                                            }} onClick={() => updateMeetingRole(role.role, role.desc, role.id)} />
+                                        </td>
+                                    )
+                                }
+                                <td>
+                                    {
+                                        isLoggedIn ? (
+                                            <input
+                                                className="form-control mt-1"
+                                                type="text"
+                                                value={role.role}
+                                                onChange={(e) => {
+                                                    const newRole = e.target.value;
+                                                    setMeetingRoles(meetingRoles.map(item => item.role === role.role ? { ...item, role: newRole } : item));
+                                                }}
+                                            />
+                                        ) : (
+                                            role.role
+                                        )
+                                    }
+                                </td>
+                                <td>
+                                    {
+                                        isLoggedIn ? (
+                                            <textarea
+                                                className="form-control mt-1"
+                                                value={role.desc}
+                                                onChange={(e) => {
+                                                    const newDesc = e.target.value;
+                                                    setMeetingRoles(meetingRoles.map(item => item.role === role.role ? { ...item, desc: newDesc } : item));
+                                                }}
+                                            />
+                                        ) : (
+                                            role.desc
+                                        )
+                                    }
+                                </td>
+                            </tr>
+                        ))}
                     </table>
                 </div>
             </Container>

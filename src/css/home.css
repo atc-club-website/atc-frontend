@@ -93,9 +93,9 @@
 }
 
 .deleteMeetingButton {
-    background-color: white;
-    color: var(--red);
-    border: 2px solid var(--red);
+    background-color: transparent;
+    color: var(--yellow);
+    border: 2px solid var(--yellow);
     padding: 10px;
     cursor: pointer;
     transition: 0.3s;
@@ -106,8 +106,8 @@
 }
 
 .deleteMeetingButton:hover {
-    background-color: var(--red);
-    color: white;
+    background-color: var(--yellow);
+    color: var(--dark_blue);
     border: 2px solid transparent;
 }
 
