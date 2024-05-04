@@ -148,7 +148,11 @@ function MembersTable(params) {
                                     ) : null
                                 }
                                 <th>Name</th>
-                                <th>Email</th>
+                                {
+                                    isLoggedIn ? (
+                                        <th>Email</th>
+                                    ) : null
+                                }
                             </tr>
                         </thead>
                         <tbody>
@@ -165,7 +169,11 @@ function MembersTable(params) {
                                         ) : null
                                     }
                                     <td>{member.name}</td>
-                                    <td>{member.email}</td>
+                                    {
+                                        isLoggedIn ? (
+                                            <td>{member.email}</td>
+                                        ) : null
+                                    }
                                 </tr>
                             ))}
                         </tbody>

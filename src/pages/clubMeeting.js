@@ -5,7 +5,7 @@ import "../css/page.css";
 import { Container } from "@mui/material";
 import Footer from "../widgets/footer";
 import supabase from "../supabase/supabase_init";
-import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import SaveTwoToneIcon from '@mui/icons-material/SaveTwoTone';
 
 function ClubMeetingFormat(params) {
     const [meetingRoles, setMeetingRoles] = useState([]);
@@ -77,7 +77,9 @@ function ClubMeetingFormat(params) {
                         <tr>
                             {
                                 isLoggedIn && (
-                                    <th />
+                                    <th style={{
+                                        width: '20px'
+                                    }} />
                                 )
                             }
                             <th>
@@ -92,7 +94,7 @@ function ClubMeetingFormat(params) {
                                 {
                                     isLoggedIn && (
                                         <td>
-                                            <EditTwoToneIcon style={{
+                                            <SaveTwoToneIcon style={{
                                                 color: 'var(--red)',
                                                 cursor: 'pointer',
                                             }} onClick={() => updateMeetingRole(role.role, role.desc, role.id)} />
