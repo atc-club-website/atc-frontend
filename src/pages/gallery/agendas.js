@@ -35,6 +35,11 @@ function Agendas(params) {
                                 <td>
                                     {convertDate(meeting.date)}
                                 </td>
+                                <td>
+                                    <img src={meeting.agendaUrl} alt="Flyer" style={{
+                                        height: '75px',
+                                    }} />
+                                </td>
                             </tr>
                         ))
                     }
