@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import supabase from "../supabase/supabase_init";
 import '../css/login.css';
 import Navbar from '../widgets/navbar';
+import tmLogo from '../assets/tm_logo_wordmark.jpg';
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -35,7 +36,8 @@ function Login() {
             <div className="Auth-form-container">
                 <form className="Auth-form" onSubmit={handleLogin}>
                     <div className="Auth-form-content">
-                        <h1 className="Auth-form-title">Login</h1>
+                        <center><img src={tmLogo} alt="TM Logo" style={{ width: '250px' }} /></center>
+                        <br />
                         <div className="form-group mt-3">
                             <input
                                 type="text"
