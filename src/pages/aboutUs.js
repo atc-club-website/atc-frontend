@@ -178,7 +178,7 @@ function AboutUs(params) {
                             setShowDeveloperModal(true)
                         }
                     }>
-                        Developed by Aadi Umrani
+                        Website developed by Aadi Umrani
                     </div>
                 </div>
             </Container>
